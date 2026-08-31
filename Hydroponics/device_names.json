@@ -1,0 +1,13 @@
+{
+  "eb39b05f77133cf7066kmy": {
+    "name": "Main Reservoir Sensor",
+    "metrics": {
+      "temp_current": {"label": "Temp", "unit": "\u00b0C", "scale": 0.1},
+      "tds_in": {"label": "TDS", "unit": "ppm"},
+      "battery_percentage": {"label": "Battery", "unit": "%"},
+      "ph": {"label": "pH", "unit": "", "scale": 0.01},
+      "conductivity_value": {"label": "Conductivity", "unit": "mS/cm", "scale": 0.001},
+      "orp_value": {"label": "ORP", "unit": "mV", "scale": 1}
+    }
+  }
+}

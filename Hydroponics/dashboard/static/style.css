@@ -1,0 +1,163 @@
+:root {
+  color-scheme: light dark;
+  --bg: #0f1115;
+  --card-bg: #1a1d24;
+  --border: #2a2e37;
+  --text: #e6e8eb;
+  --text-dim: #9aa1ac;
+  --accent: #4cc38a;
+  --error: #e5636b;
+  --warn: #e0a53d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.page-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.last-refreshed {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+.loading {
+  color: var(--text-dim);
+}
+
+.devices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.device-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.device-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.device-name {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.status-badge {
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: var(--border);
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.status-badge.success {
+  background: rgba(76, 195, 138, 0.15);
+  color: var(--accent);
+}
+
+.status-badge.error {
+  background: rgba(229, 99, 107, 0.15);
+  color: var(--error);
+}
+
+.status-badge.stale {
+  background: rgba(224, 165, 61, 0.15);
+  color: var(--warn);
+}
+
+.device-timestamp {
+  margin-top: 4px;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+}
+
+.readings-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.reading-item {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  min-width: 90px;
+}
+
+.reading-label {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.reading-value {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.chart-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.chart-title {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin: 0 0 4px 4px;
+}
+
+.chart-block canvas {
+  width: 100% !important;
+  height: 140px !important;
+}
+
+.error-note {
+  color: var(--error);
+  font-size: 0.8rem;
+  margin-top: 8px;
+}

@@ -1,0 +1,25 @@
+# Tuya credentials / device data (contain API secrets and local keys)
+tinytuya.json
+devices.json
+snapshot.json
+tuya-raw.json
+*.csv
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Editor/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

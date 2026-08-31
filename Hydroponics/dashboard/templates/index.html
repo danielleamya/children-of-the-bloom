@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hydroponics Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body data-refresh-seconds="{{ refresh_seconds }}">
+  <header class="page-header">
+    <h1>Hydroponics Dashboard</h1>
+    <div id="last-refreshed" class="last-refreshed">Loading&hellip;</div>
+  </header>
+
+  <main id="devices" class="devices-grid">
+    <p class="loading">Loading devices&hellip;</p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
