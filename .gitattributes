@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Large media via Git LFS (required for prayer videos on GitHub)
+*.mp4 filter=lfs diff=lfs merge=lfs -text

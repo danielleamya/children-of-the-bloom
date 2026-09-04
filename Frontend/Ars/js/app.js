@@ -1,6 +1,25 @@
+/**
+ * CHILD/REN of the BLOOM — kiosk experience controller.
+ *
+ * Scenes: landing → sacred → (prayer ↔ chat)×8 → endingPrayer → credits.
+ * Prayer timing comes from loop.audioCues; line wrapping is shared with
+ * cue-review via prayer-lines.js. Staff shortcuts and fullscreen lock live here.
+ */
 const COPY = {
   disclaimer:
     "You are about to speak with a generative AI chatbot. Your messages and responses may be stored on a local server for this installation. Do not share personal, sensitive, or confidential information.",
+};
+
+const CREDITS = {
+  // Order and sizing: first entry is the lead credit (larger + extra spacing).
+  people: [
+    { name: "LaJuné McMillian", role: "Artist" },
+    { name: "Danielle McPhatter", role: "Lead Technologist" },
+    { name: "Veronica Garza", role: "Project Manager" },
+    { name: "Carey Dueweke", role: "UI Art Direction" },
+    { name: "Josie Williams", role: "AI Development" },
+    { name: "Paz Zait-Givon", role: "Hydroponics Development" },
+  ],
 };
 
 const SECTION_BASE_MS = 3000;
@@ -11,6 +30,10 @@ const MAX_NEIGHBOR_LINES = 5;
 const CHAT_IDLE_MS = 10 * 60 * 1000;
 const DEFAULT_TURNS_PER_LOOP = 5;
 const VIDEO_BASE = "assets/videos/";
+/** Staff password required to leave kiosk fullscreen. */
+const KIOSK_EXIT_PASSWORD = "children123";
+/** Auto-dismiss the unlock panel if nothing is submitted. */
+const KIOSK_LOCK_IDLE_MS = 60 * 1000;
 
 const state = {
   scene: "landing",
@@ -30,17 +53,176 @@ const state = {
   turnCount: 0,
   turnsPerLoop: DEFAULT_TURNS_PER_LOOP,
   loops: [],
+  loopsMeta: { wrapFraction: 0.48 },
   closing: null,
   contentReady: false,
+  audioCueStarts: null,
+  audioCompleteAt: null,
+  prayerAwaitingSpeech: false,
+  prayerAutoContinuing: false,
 };
 
 let poemTimer = null;
 let poemTransitionTimeout = null;
 let chatIdleTimer = null;
+let prayerAudioSyncBound = false;
+let prayerEndWatchTimer = null;
 
 const ui = document.getElementById("ui");
 const kiosk = document.getElementById("kiosk");
 const loopVideo = document.getElementById("loop-video");
+const kioskLock = document.getElementById("kiosk-lock");
+const kioskLockForm = document.getElementById("kiosk-lock-form");
+const kioskLockPassword = document.getElementById("kiosk-lock-password");
+const kioskLockError = document.getElementById("kiosk-lock-error");
+const kioskLockReturn = document.getElementById("kiosk-lock-return");
+
+let kioskFullscreenArmed = false;
+let kioskFullscreenExitAllowed = false;
+let kioskLockIdleTimer = null;
+let kioskSilentRestoreBound = false;
+
+// --- Fullscreen staff gate -------------------------------------------------
+// Browsers always allow Escape to exit fullscreen. When armed, we immediately
+// cover the UI with #kiosk-lock until the password succeeds, idle times out,
+// or staff chooses "Return to kiosk".
+
+function isDocumentFullscreen() {
+  return Boolean(
+    document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.msFullscreenElement
+  );
+}
+
+async function requestKioskFullscreen() {
+  const root = document.documentElement;
+  if (isDocumentFullscreen()) return true;
+  try {
+    if (root.requestFullscreen) {
+      await root.requestFullscreen({ navigationUI: "hide" });
+    } else if (root.webkitRequestFullscreen) {
+      root.webkitRequestFullscreen();
+    } else if (root.msRequestFullscreen) {
+      root.msRequestFullscreen();
+    } else {
+      return false;
+    }
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+async function exitKioskFullscreen() {
+  if (!isDocumentFullscreen()) return;
+  try {
+    if (document.exitFullscreen) await document.exitFullscreen();
+    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    else if (document.msExitFullscreen) document.msExitFullscreen();
+  } catch (_) {
+    /* ignore */
+  }
+}
+
+function clearKioskLockIdleTimer() {
+  if (kioskLockIdleTimer) {
+    clearTimeout(kioskLockIdleTimer);
+    kioskLockIdleTimer = null;
+  }
+}
+
+function scheduleKioskLockIdleTimer() {
+  clearKioskLockIdleTimer();
+  kioskLockIdleTimer = setTimeout(() => {
+    dismissKioskLockToKiosk();
+  }, KIOSK_LOCK_IDLE_MS);
+}
+
+function armSilentFullscreenRestore() {
+  if (kioskSilentRestoreBound) return;
+  kioskSilentRestoreBound = true;
+  const restore = () => {
+    kioskSilentRestoreBound = false;
+    if (!kioskFullscreenArmed || kioskFullscreenExitAllowed) return;
+    if (isDocumentFullscreen()) return;
+    requestKioskFullscreen();
+  };
+  window.addEventListener("pointerdown", restore, { once: true, capture: true });
+  window.addEventListener("keydown", restore, { once: true, capture: true });
+}
+
+function showKioskLock() {
+  if (!kioskLock) return;
+  kioskLock.hidden = false;
+  if (kioskLockError) kioskLockError.hidden = true;
+  if (kioskLockPassword) {
+    kioskLockPassword.value = "";
+    requestAnimationFrame(() => kioskLockPassword.focus());
+  }
+  scheduleKioskLockIdleTimer();
+}
+
+function hideKioskLock() {
+  clearKioskLockIdleTimer();
+  if (!kioskLock) return;
+  kioskLock.hidden = true;
+  if (kioskLockError) kioskLockError.hidden = true;
+  if (kioskLockPassword) kioskLockPassword.value = "";
+}
+
+async function dismissKioskLockToKiosk() {
+  clearKioskLockIdleTimer();
+  hideKioskLock();
+  kioskFullscreenExitAllowed = false;
+  kioskFullscreenArmed = true;
+  const ok = await requestKioskFullscreen();
+  if (!ok && !isDocumentFullscreen()) {
+    armSilentFullscreenRestore();
+  }
+}
+
+async function armKioskFullscreen() {
+  kioskFullscreenExitAllowed = false;
+  kioskFullscreenArmed = true;
+  hideKioskLock();
+  const ok = await requestKioskFullscreen();
+  if (!ok && !isDocumentFullscreen()) {
+    armSilentFullscreenRestore();
+  }
+}
+
+function unlockKioskFullscreen() {
+  kioskFullscreenExitAllowed = true;
+  kioskFullscreenArmed = false;
+  hideKioskLock();
+}
+
+function onKioskFullscreenChange() {
+  if (!kioskFullscreenArmed) return;
+  if (isDocumentFullscreen()) {
+    hideKioskLock();
+    return;
+  }
+  if (kioskFullscreenExitAllowed) {
+    kioskFullscreenArmed = false;
+    hideKioskLock();
+    return;
+  }
+  // Browsers always allow Escape to leave fullscreen. Re-cover the UI with
+  // the staff gate; returning requires a click (user gesture) to re-enter.
+  showKioskLock();
+}
+
+function loopWantsAudioSync(loop = currentLoop()) {
+  if (!loop) return false;
+  if (loop.audioSync === true) return true;
+  return Boolean(loop.video && /withsound/i.test(loop.video));
+}
+
+function prayerUsesAudioSync() {
+  return state.scene === "prayer" && loopWantsAudioSync();
+}
 
 function currentLoop() {
   return state.loops[state.loopIndex] || null;
@@ -55,6 +237,7 @@ function turnsForCurrentLoop() {
 }
 
 function isReadingScene(scene = state.scene) {
+  // "closing" (The Portal) remains supported in code but is not linked in the live flow.
   return scene === "prayer" || scene === "endingPrayer" || scene === "closing";
 }
 
@@ -75,13 +258,62 @@ function readingHeader() {
 
 function readingContinueAction() {
   if (state.scene === "endingPrayer") return "continue-ending-prayer";
-  if (state.scene === "closing") return "reload";
+  if (state.scene === "closing") return "continue-closing";
   return "continue-prayer";
 }
 
 function readingContinueLabel() {
-  if (state.scene === "closing") return "Begin again";
   return "Continue";
+}
+
+function renderCreditsScreen() {
+  const people = CREDITS.people
+    .map((person, index) => {
+      const lead = index === 0 ? " credits-person--lead" : "";
+      return `
+        <li class="credits-person${lead}">
+          <span class="credits-name">${escapeHtml(person.name)}</span>
+          <span class="credits-role">${escapeHtml(person.role)}</span>
+        </li>`;
+    })
+    .join("");
+
+  return frame(
+    0.15,
+    `
+      <div class="screen-frame" aria-hidden="true"></div>
+      <p class="screen-header screen-header--poem">Credits</p>
+      <div class="screen-body">
+        <div class="credits-stage credits-stage--enter">
+          <ul class="credits-people">${people}</ul>
+          <div class="credits-logos" aria-label="Partner logos">
+            <div class="credits-logo-row credits-logo-row--solo">
+              <img
+                class="credits-logo credits-logo--irl"
+                src="assets/logos/irl-logo.png"
+                alt="EY intelligent realities lab"
+              />
+            </div>
+            <div class="credits-logo-row credits-logo-row--pair">
+              <img
+                class="credits-logo credits-logo--partner"
+                src="assets/logos/new-inc-white.png"
+                alt="NEW INC"
+              />
+              <img
+                class="credits-logo credits-logo--partner"
+                src="assets/logos/new-museum-white.png"
+                alt="New Museum"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="poem-footer">
+        <button class="btn btn--medium poem-continue" data-action="reload">Begin again</button>
+      </div>`,
+    { poem: true, credits: true }
+  );
 }
 
 function readingShowSideActions() {
@@ -124,10 +356,11 @@ function mountLoopVideoHost(mode) {
   clearLoopVideoLayout();
 }
 
-function setLoopVideo(filename, { active = true, mode = "full" } = {}) {
+function setLoopVideo(filename, { active = true, mode = "full", restart = false } = {}) {
   if (!loopVideo) return;
 
   if (!filename || !active) {
+    detachPrayerAudioSync();
     loopVideo.pause();
     loopVideo.removeAttribute("src");
     loopVideo.load();
@@ -143,16 +376,49 @@ function setLoopVideo(filename, { active = true, mode = "full" } = {}) {
   const nextSrc = videoSrcFor(filename);
   const currentSrc = loopVideo.getAttribute("src") || "";
   const absoluteNext = new URL(nextSrc, window.location.href).href;
+  const srcChanged =
+    currentSrc !== nextSrc && loopVideo.src !== absoluteNext;
 
-  if (currentSrc !== nextSrc && loopVideo.src !== absoluteNext) {
+  if (srcChanged) {
     loopVideo.src = nextSrc;
     loopVideo.load();
   }
 
-  loopVideo.muted = true;
-  loopVideo.loop = true;
+  // Spoken prayer: play once with audio. Chat (and silent loops): muted + loop.
+  const playWithSound = mode === "full" && loopWantsAudioSync();
+  loopVideo.muted = !playWithSound;
+  loopVideo.loop = !playWithSound;
+  if (playWithSound) {
+    loopVideo.removeAttribute("loop");
+  } else {
+    loopVideo.setAttribute("loop", "");
+  }
+
+  if ((restart || srcChanged) && playWithSound) {
+    const seekStart = () => {
+      try {
+        loopVideo.currentTime = 0;
+      } catch (_) {
+        /* seek may fail before metadata */
+      }
+    };
+    seekStart();
+    if (!Number.isFinite(loopVideo.duration) || loopVideo.readyState < 1) {
+      loopVideo.addEventListener("loadedmetadata", seekStart, { once: true });
+    }
+  }
+
   const play = loopVideo.play();
-  if (play && typeof play.catch === "function") play.catch(() => {});
+  if (play && typeof play.catch === "function") {
+    play.catch(() => {
+      // Autoplay-with-sound can fail; keep visuals going muted.
+      if (playWithSound) {
+        loopVideo.muted = true;
+        const retry = loopVideo.play();
+        if (retry && typeof retry.catch === "function") retry.catch(() => {});
+      }
+    });
+  }
 
   loopVideo.classList.add("is-active");
 
@@ -178,6 +444,21 @@ function syncChatVideoLayout() {
 
   mountLoopVideoHost("panel");
 
+  const frame = document.querySelector(".chat-video-frame");
+  if (frame) {
+    const applyAspect = () => {
+      const w = loopVideo.videoWidth;
+      const h = loopVideo.videoHeight;
+      if (w > 0 && h > 0) {
+        frame.style.aspectRatio = `${w} / ${h}`;
+      }
+    };
+    applyAspect();
+    if (!loopVideo.videoWidth) {
+      loopVideo.addEventListener("loadedmetadata", applyAspect, { once: true });
+    }
+  }
+
   // Keep playback alive after DOM moves.
   if (loopVideo.paused) {
     const play = loopVideo.play();
@@ -188,10 +469,11 @@ function syncChatVideoLayout() {
 function syncVideoForScene(scene) {
   const loop = currentLoop();
   if (scene === "prayer" && loop && loop.video) {
-    setLoopVideo(loop.video, { active: true, mode: "full" });
+    setLoopVideo(loop.video, { active: true, mode: "full", restart: true });
     return;
   }
   if (scene === "chat" && loop && loop.video) {
+    // Mute spoken prayer audio as soon as chat opens; keep picture looping quietly.
     setLoopVideo(loop.video, { active: true, mode: "panel" });
     return;
   }
@@ -234,6 +516,7 @@ const screens = {
   prayer: () => renderReadingScreen(),
   endingPrayer: () => renderReadingScreen(),
   closing: () => renderReadingScreen(),
+  credits: () => renderCreditsScreen(),
 
   chat: () => {
     app.bgDim = 0.15;
@@ -321,108 +604,47 @@ function renderReadingScreen() {
 }
 
 /**
- * Break prayer copy into single visual lines that fit the kiosk width.
- * Source newlines first, then wrap any line that would exceed one row.
+ * Prayer line metrics / wrapping / cue expansion live in prayer-lines.js
+ * so the cue editor preview matches the kiosk exactly.
+ * Authored audioCue = one line; only width-wrap may create extra visual rows.
  */
-function getPrayerLineMetrics() {
-  const width = (kiosk && kiosk.clientWidth) || window.innerWidth;
-  const height = (kiosk && kiosk.clientHeight) || window.innerHeight;
-  const rootSize =
-    parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-  const fontSize = Math.min(
-    1.45 * rootSize,
-    Math.max(1.05 * rootSize, height * 0.03)
+function prayerViewport() {
+  const loop = currentLoop();
+  const wrapFraction = Number(
+    (loop && loop.wrapFraction) ||
+      (state.loopsMeta && state.loopsMeta.wrapFraction) ||
+      0.48
   );
   return {
-    maxWidth: width * 0.62,
-    font: `400 ${fontSize}px "Bona Nova", Georgia, serif`,
+    width: (kiosk && kiosk.clientWidth) || window.innerWidth,
+    height: (kiosk && kiosk.clientHeight) || window.innerHeight,
+    wrapFraction,
+    wrapMode: (loop && loop.wrapMode) || "width",
   };
 }
 
-function measureTextWidth(text, font) {
-  if (!measureTextWidth.canvas) {
-    measureTextWidth.canvas = document.createElement("canvas");
-  }
-  const ctx = measureTextWidth.canvas.getContext("2d");
-  ctx.font = font;
-  return ctx.measureText(text).width;
+function getPrayerLineMetrics() {
+  return PrayerLines.getPrayerLineMetrics(prayerViewport());
 }
 
 function wrapLineToWidth(line, maxWidth, font) {
-  const text = String(line || "").trim();
-  if (!text) return [];
-  if (measureTextWidth(text, font) <= maxWidth) return [text];
-
-  const words = text.split(/\s+/);
-  const rows = [];
-  let current = "";
-
-  const pushHardSplit = (word) => {
-    let chunk = "";
-    for (const ch of word) {
-      const trial = chunk + ch;
-      if (chunk && measureTextWidth(trial, font) > maxWidth) {
-        rows.push(chunk);
-        chunk = ch;
-      } else {
-        chunk = trial;
-      }
-    }
-    current = chunk;
-  };
-
-  for (const word of words) {
-    const trial = current ? `${current} ${word}` : word;
-    if (measureTextWidth(trial, font) <= maxWidth) {
-      current = trial;
-      continue;
-    }
-    if (current) rows.push(current);
-    if (measureTextWidth(word, font) <= maxWidth) {
-      current = word;
-    } else {
-      pushHardSplit(word);
-    }
-  }
-
-  if (current) rows.push(current);
-  return rows;
+  return PrayerLines.wrapLineToWidth(line, maxWidth, font);
 }
 
-/**
- * Break prayer copy into carousel lines:
- * every period (.) or source newline starts a new line,
- * then wrap anything that still won't fit on one visual row.
- */
+function splitOnSentencePunctuation(block) {
+  return PrayerLines.splitOnSentencePunctuation(block);
+}
+
 function splitOnPeriods(block) {
-  const parts = [];
-  let buf = "";
-  for (const ch of String(block || "")) {
-    buf += ch;
-    if (ch === ".") {
-      const trimmed = buf.trim();
-      if (trimmed) parts.push(trimmed);
-      buf = "";
-    }
-  }
-  const tail = buf.trim();
-  if (tail) parts.push(tail);
-  return parts;
+  return splitOnSentencePunctuation(block);
+}
+
+function coalesceAudioCues(cues) {
+  return PrayerLines.coalesceAudioCues(cues);
 }
 
 function splitPrayerSections(text) {
-  const { maxWidth, font } = getPrayerLineMetrics();
-  const sourceLines = String(text || "")
-    .replace(/\r\n/g, "\n")
-    .split("\n")
-    .flatMap((block) => splitOnPeriods(block.trim()))
-    .filter(Boolean);
-
-  const fitted = [];
-  sourceLines.forEach((line) => {
-    fitted.push(...wrapLineToWidth(line, maxWidth, font));
-  });
-  return fitted;
+  return PrayerLines.splitPrayerSections(text, prayerViewport());
 }
 
 function sectionDwellMs(text) {
@@ -437,6 +659,8 @@ function poemLineHTML(text, className, slot) {
 }
 
 function buildPoemStackHTML(activeIndex) {
+  if (state.prayerAwaitingSpeech) return "";
+
   const lines = state.readingLines;
   const showFuture = state.poemComplete;
   let html = "";
@@ -480,6 +704,184 @@ function clearPoemTransition() {
   state.poemTransitioning = false;
 }
 
+function detachPrayerAudioSync() {
+  if (loopVideo && prayerAudioSyncBound) {
+    loopVideo.removeEventListener("timeupdate", onPrayerAudioTimeUpdate);
+    loopVideo.removeEventListener("ended", onPrayerAudioEnded);
+  }
+  prayerAudioSyncBound = false;
+  clearPrayerEndWatch();
+}
+
+function stopPrayerAudioLineSync() {
+  if (!loopVideo) return;
+  loopVideo.removeEventListener("timeupdate", onPrayerAudioTimeUpdate);
+}
+
+function clearPrayerEndWatch() {
+  if (prayerEndWatchTimer) {
+    clearTimeout(prayerEndWatchTimer);
+    prayerEndWatchTimer = null;
+  }
+}
+
+function attachPrayerAudioSync() {
+  if (!loopVideo) return;
+  if (!prayerAudioSyncBound) {
+    loopVideo.addEventListener("timeupdate", onPrayerAudioTimeUpdate);
+    loopVideo.addEventListener("ended", onPrayerAudioEnded);
+    prayerAudioSyncBound = true;
+  }
+  // Always (re)arm the end watcher — line completion used to drop `ended`.
+  schedulePrayerAutoContinueWatch();
+}
+
+function revealPrayerSpeech() {
+  if (!state.prayerAwaitingSpeech) return;
+  state.prayerAwaitingSpeech = false;
+  const stack = document.querySelector("#poem .poem-stack");
+  if (stack) stack.innerHTML = buildPoemStackHTML(state.poemLineIndex);
+}
+
+function autoContinuePrayerToChat() {
+  if (state.scene !== "prayer") return;
+  if (!loopWantsAudioSync()) return;
+  if (state.prayerAutoContinuing) return;
+  state.prayerAutoContinuing = true;
+  clearPrayerEndWatch();
+  if (!state.poemComplete) finishPrayerFromAudio();
+  startLoopChat();
+}
+
+/**
+ * Watch for true end-of-clip (including freeze on final frame).
+ * Does not depend on the `ended` event alone — some browsers stall there.
+ */
+function schedulePrayerAutoContinueWatch() {
+  if (!loopVideo || !prayerUsesAudioSync()) return;
+  clearPrayerEndWatch();
+
+  const tick = () => {
+    prayerEndWatchTimer = null;
+    if (state.scene !== "prayer" || state.prayerAutoContinuing) return;
+    if (!loopWantsAudioSync()) return;
+
+    const duration = loopVideo.duration;
+    const t = loopVideo.currentTime;
+    const nearEnd =
+      loopVideo.ended ||
+      (Number.isFinite(duration) &&
+        duration > 0 &&
+        t >= Math.max(0, duration - 0.2));
+
+    if (nearEnd) {
+      autoContinuePrayerToChat();
+      return;
+    }
+
+    prayerEndWatchTimer = setTimeout(tick, 175);
+  };
+
+  prayerEndWatchTimer = setTimeout(tick, 175);
+}
+
+function finishPrayerFromAudio() {
+  if (!isReadingScene()) return;
+  if (poemTimer) {
+    clearTimeout(poemTimer);
+    poemTimer = null;
+  }
+  // Stop line sync only — keep end-of-video auto-continue armed.
+  stopPrayerAudioLineSync();
+  clearPoemTransition();
+  state.prayerAwaitingSpeech = false;
+  schedulePrayerAutoContinueWatch();
+  if (state.poemComplete) return;
+  state.poemComplete = true;
+  state.poemLineIndex = Math.max(0, state.readingLines.length - 1);
+  const stack = document.querySelector("#poem .poem-stack");
+  if (stack) stack.innerHTML = buildPoemStackHTML(state.poemLineIndex);
+  showPoemActions();
+}
+
+function onPrayerAudioEnded() {
+  autoContinuePrayerToChat();
+}
+
+/**
+ * Drive first-read line advances from spoken video timestamps.
+ * Prefer per-line audioCues (expanded into readingStarts) when present.
+ * Skip non-monotonic starts so a bad 0.0 wordTiming cannot lock the carousel
+ * mid-prayer.
+ */
+function onPrayerAudioTimeUpdate() {
+  if (!prayerUsesAudioSync() || state.poemComplete || state.poemTransitioning) {
+    return;
+  }
+  if (!loopVideo) return;
+
+  const n = state.readingLines.length;
+  if (n <= 1) {
+    finishPrayerFromAudio();
+    return;
+  }
+
+  const t = loopVideo.currentTime;
+  const firstStart =
+    state.audioCueStarts && state.audioCueStarts.length
+      ? Number(state.audioCueStarts[0]) || 0
+      : 0;
+
+  // Hold blank overlay through opening silence until speech begins.
+  if (state.prayerAwaitingSpeech) {
+    if (t + 0.05 < firstStart) return;
+    revealPrayerSpeech();
+  }
+
+  let targetIndex;
+
+  if (state.audioCueStarts && state.audioCueStarts.length === n) {
+    targetIndex = 0;
+    let lastAccepted = -Infinity;
+    for (let i = 0; i < state.audioCueStarts.length; i += 1) {
+      const s = Number(state.audioCueStarts[i]);
+      if (!Number.isFinite(s)) continue;
+      // Skip non-monotonic times (bad 0.0 wordTiming locks on later wraps).
+      if (s + 0.05 < lastAccepted) continue;
+      if (t + 0.08 >= s) {
+        targetIndex = i;
+        lastAccepted = s;
+      }
+    }
+    const lastStart = state.audioCueStarts[n - 1];
+    const completeAt =
+      Number.isFinite(state.audioCompleteAt) && state.audioCompleteAt > lastStart
+        ? state.audioCompleteAt
+        : lastStart + 1.6;
+    if (t >= completeAt) {
+      finishPrayerFromAudio();
+      return;
+    }
+  } else {
+    const duration = loopVideo.duration;
+    if (!Number.isFinite(duration) || duration <= 0) return;
+    const progress = Math.min(1, Math.max(0, t / duration));
+    targetIndex = Math.min(n - 1, Math.floor(progress * n));
+  }
+
+  if (targetIndex > state.poemLineIndex + 1) {
+    clearPoemTransition();
+    state.poemLineIndex = targetIndex;
+    const stack = document.querySelector("#poem .poem-stack");
+    if (stack) stack.innerHTML = buildPoemStackHTML(targetIndex);
+    return;
+  }
+
+  if (targetIndex > state.poemLineIndex) {
+    advancePoemLine();
+  }
+}
+
 function scheduleNextSection() {
   if (poemTimer) {
     clearTimeout(poemTimer);
@@ -487,6 +889,12 @@ function scheduleNextSection() {
   }
   if (!isReadingScene() || state.poemComplete) return;
 
+  if (prayerUsesAudioSync()) {
+    attachPrayerAudioSync();
+    return;
+  }
+
+  detachPrayerAudioSync();
   const current = state.readingLines[state.poemLineIndex] || "";
   poemTimer = setTimeout(() => {
     if (!isReadingScene() || state.poemTransitioning) return;
@@ -533,9 +941,13 @@ function movePrayerBy(direction) {
   if (nextIndex < 0) return false;
 
   if (nextIndex >= lines.length) {
-    state.poemComplete = true;
-    clearPoemTimer();
-    showPoemActions();
+    if (prayerUsesAudioSync()) {
+      finishPrayerFromAudio();
+    } else {
+      state.poemComplete = true;
+      clearPoemTimer();
+      showPoemActions();
+    }
     const stack = document.querySelector("#poem .poem-stack");
     if (stack) stack.innerHTML = buildPoemStackHTML(state.poemLineIndex);
     return false;
@@ -591,9 +1003,13 @@ function movePrayerBy(direction) {
     poemTransitionTimeout = setTimeout(() => {
       state.poemLineIndex = nextIndex;
       if (nextIndex >= lines.length - 1) {
-        state.poemComplete = true;
-        clearPoemTimer();
-        showPoemActions();
+        if (prayerUsesAudioSync()) {
+          finishPrayerFromAudio();
+        } else {
+          state.poemComplete = true;
+          clearPoemTimer();
+          showPoemActions();
+        }
       }
       stack.innerHTML = buildPoemStackHTML(nextIndex);
       clearPoemTransition();
@@ -663,6 +1079,7 @@ function frame(dim, inner, options = {}) {
     options.landing ? "screen--landing" : "",
     options.prayer ? "screen--prayer" : "",
     options.closing ? "screen--closing" : "",
+    options.credits ? "screen--credits" : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -674,11 +1091,43 @@ function clearPoemTimer() {
     clearTimeout(poemTimer);
     poemTimer = null;
   }
+  detachPrayerAudioSync();
   clearPoemTransition();
 }
 
+function expandCuesToReadingLines(cues) {
+  return PrayerLines.expandCuesToReadingLines(cues, prayerViewport());
+}
+
 function preparePrayerReading() {
-  state.readingLines = splitPrayerSections(readingSourceText());
+  // Expand authored audioCues into the visual lines + start times the carousel uses.
+  state.audioCueStarts = null;
+  state.audioCompleteAt = null;
+  state.prayerAwaitingSpeech = false;
+  state.prayerAutoContinuing = false;
+
+  const loop = currentLoop();
+  const cues =
+    state.scene === "prayer" &&
+    loop &&
+    Array.isArray(loop.audioCues) &&
+    loop.audioCues.length
+      ? loop.audioCues
+      : null;
+
+  if (cues) {
+    const expanded = expandCuesToReadingLines(cues);
+    state.readingLines = expanded.lines;
+    state.audioCueStarts = expanded.starts;
+    const last = cues[cues.length - 1];
+    state.audioCompleteAt = Number(last && last.end) || Number(last && last.start) + 2;
+    const firstStart = Number(expanded.starts[0]) || 0;
+    // Hide overlay until the spoken take actually begins.
+    state.prayerAwaitingSpeech = firstStart > 0.15;
+  } else {
+    state.readingLines = splitPrayerSections(readingSourceText());
+  }
+
   if (!state.readingLines.length) {
     state.readingLines = ["…"];
   }
@@ -701,6 +1150,10 @@ function restartPrayerReading() {
   clearPoemTimer();
   prayerWheelAccum = 0;
   preparePrayerReading();
+  const loop = currentLoop();
+  if (loop && loop.video) {
+    setLoopVideo(loop.video, { active: true, mode: "full", restart: true });
+  }
   render();
   startPrayerReading();
 }
@@ -811,7 +1264,7 @@ function beginExperienceLoops() {
 async function startLoopChat() {
   const loop = currentLoop();
   if (!loop) {
-    go("closing");
+    go("credits");
     return;
   }
 
@@ -845,7 +1298,28 @@ async function startLoopChat() {
   go("chat");
 }
 
+function jumpToLoopSection(index, { chat = false } = {}) {
+  // Staff testing helper (Ctrl+Shift+#). Resets turn state for that loop only.
+  if (!state.loops.length) return;
+  const next = Math.max(0, Math.min(state.loops.length - 1, index));
+  clearPoemTimer();
+  clearChatIdleTimer();
+  state.loopIndex = next;
+  state.turnCount = 0;
+  state.chatBusy = false;
+  state.chatReadyToContinue = false;
+  state.animateLeadingQuestion = false;
+  state.animateContinueButton = false;
+  state.endingPrayerText = "";
+  if (chat) {
+    startLoopChat();
+    return;
+  }
+  go("prayer");
+}
+
 function advanceAfterTurns() {
+  // Last loop: visitor's offering becomes endingPrayer, then credits (no Portal).
   if (isLastLoop()) {
     go("endingPrayer");
     return;
@@ -858,7 +1332,7 @@ function advanceAfterTurns() {
     go("prayer");
     return;
   }
-  go("closing");
+  go("credits");
 }
 
 async function handleSend(text) {
@@ -964,13 +1438,107 @@ ui.addEventListener("click", (event) => {
   if (!btn || btn.tagName === "FORM") return;
 
   const action = btn.dataset.action;
-  if (action === "begin") go("sacred");
-  else if (action === "agree") beginExperienceLoops();
+  if (action === "begin") {
+    armKioskFullscreen();
+    go("sacred");
+  } else if (action === "agree") beginExperienceLoops();
   else if (action === "restart-prayer") restartPrayerReading();
   else if (action === "continue-prayer" || action === "skip-prayer") startLoopChat();
   else if (action === "continue-after-chat") advanceAfterTurns();
-  else if (action === "continue-ending-prayer") go("closing");
+  else if (action === "continue-ending-prayer") go("credits");
+  else if (action === "continue-closing") go("credits");
   else if (action === "reload") reset();
+});
+
+if (kioskLockForm) {
+  kioskLockForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const typed = String((kioskLockPassword && kioskLockPassword.value) || "");
+    if (typed === KIOSK_EXIT_PASSWORD) {
+      unlockKioskFullscreen();
+      exitKioskFullscreen();
+      return;
+    }
+    // Wrong password: close the panel and return to kiosk mode.
+    dismissKioskLockToKiosk();
+  });
+}
+
+if (kioskLockReturn) {
+  kioskLockReturn.addEventListener("click", () => {
+    armKioskFullscreen();
+  });
+}
+
+document.addEventListener("fullscreenchange", onKioskFullscreenChange);
+document.addEventListener("webkitfullscreenchange", onKioskFullscreenChange);
+document.addEventListener("MSFullscreenChange", onKioskFullscreenChange);
+
+window.addEventListener("keydown", (event) => {
+  if (!kioskLock || kioskLock.hidden) return;
+  if (event.key === "Escape") {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+}, true);
+
+// Staff shortcuts:
+//   Ctrl+Shift+1..8  → that video's prayer
+//   Ctrl+Shift+Alt+1..8 → that video's chat
+//   Ctrl+Shift+C → credits
+//   Ctrl+Shift+E → ending "Your prayer" (needs a sample offering)
+window.addEventListener("keydown", (event) => {
+  if (!(event.ctrlKey && event.shiftKey)) return;
+  if (kioskLock && !kioskLock.hidden) return;
+  const tag = (event.target && event.target.tagName) || "";
+  if (tag === "INPUT" || tag === "TEXTAREA") return;
+
+  const key = String(event.key || "");
+  const lower = key.toLowerCase();
+
+  if (lower === "c") {
+    event.preventDefault();
+    go("credits");
+    return;
+  }
+
+  if (lower === "e") {
+    event.preventDefault();
+    if (!state.endingPrayerText) {
+      state.endingPrayerText =
+        "May we step into a world that truly loves all people.";
+    }
+    go("endingPrayer");
+    return;
+  }
+
+  const codeMatch = /^Digit([1-9])$/.exec(event.code || "");
+  const digit =
+    (codeMatch ? Number(codeMatch[1]) : null) ||
+    {
+      1: 1,
+      2: 2,
+      3: 3,
+      4: 4,
+      5: 5,
+      6: 6,
+      7: 7,
+      8: 8,
+      9: 9,
+      "!": 1,
+      "@": 2,
+      "#": 3,
+      $: 4,
+      "%": 5,
+      "^": 6,
+      "&": 7,
+      "*": 8,
+      "(": 9,
+    }[key] ||
+    null;
+  if (!digit || digit > state.loops.length) return;
+  event.preventDefault();
+  jumpToLoopSection(digit - 1, { chat: event.altKey });
 });
 
 ui.addEventListener(
@@ -999,6 +1567,9 @@ async function bootstrap() {
     state.loops = Array.isArray(data.loops) ? data.loops : [];
     state.closing = data.closing || null;
     state.turnsPerLoop = Number(data.turnsPerLoop) || DEFAULT_TURNS_PER_LOOP;
+    state.loopsMeta = {
+      wrapFraction: Number(data.wrapFraction) || 0.48,
+    };
     state.contentReady = state.loops.length > 0;
   } catch (err) {
     console.error("Failed to load loop content:", err);

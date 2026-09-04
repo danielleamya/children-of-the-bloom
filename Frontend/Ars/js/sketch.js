@@ -1,4 +1,7 @@
-const PORTRAIT_RATIO = 9 / 16;
+// Canonical kiosk canvas matches the source videos exactly. The complete
+// 688×1032 experience is uniformly scaled to fit the browser when necessary.
+const KIOSK_WIDTH = 688;
+const KIOSK_HEIGHT = 1032;
 const MAX_TRAIL = 280;
 const MAX_RIBBON = 36;
 
@@ -55,33 +58,24 @@ const sketch = (p) => {
   function layoutKiosk() {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    let w;
-    let h;
-    let x;
-    let y;
-
-    if (vw / vh <= PORTRAIT_RATIO + 0.02) {
-      w = vw;
-      h = vh;
-      x = 0;
-      y = 0;
-    } else {
-      h = vh;
-      w = Math.round(h * PORTRAIT_RATIO);
-      x = Math.round((vw - w) / 2);
-      y = 0;
-    }
+    const scale = Math.min(vw / KIOSK_WIDTH, vh / KIOSK_HEIGHT);
+    const renderedWidth = KIOSK_WIDTH * scale;
+    const renderedHeight = KIOSK_HEIGHT * scale;
+    const x = Math.round((vw - renderedWidth) / 2);
+    const y = Math.round((vh - renderedHeight) / 2);
 
     const kiosk = document.getElementById("kiosk");
-    kiosk.style.width = `${w}px`;
-    kiosk.style.height = `${h}px`;
+    kiosk.style.width = `${KIOSK_WIDTH}px`;
+    kiosk.style.height = `${KIOSK_HEIGHT}px`;
     kiosk.style.left = `${x}px`;
     kiosk.style.top = `${y}px`;
-    kiosk.style.setProperty("--kh", `${h}px`);
+    kiosk.style.transform = `scale(${scale})`;
+    kiosk.style.transformOrigin = "top left";
+    kiosk.style.setProperty("--kh", `${KIOSK_HEIGHT}px`);
 
-    p.resizeCanvas(w, h);
-    app.w = w;
-    app.h = h;
+    p.resizeCanvas(KIOSK_WIDTH, KIOSK_HEIGHT);
+    app.w = KIOSK_WIDTH;
+    app.h = KIOSK_HEIGHT;
   }
 
   function seedSparks() {
@@ -111,8 +105,8 @@ const sketch = (p) => {
         clientY <= rect.bottom;
 
       app.pointer = {
-        x: clientX - rect.left,
-        y: clientY - rect.top,
+        x: (clientX - rect.left) * (app.w / rect.width),
+        y: (clientY - rect.top) * (app.h / rect.height),
         inside,
       };
     };

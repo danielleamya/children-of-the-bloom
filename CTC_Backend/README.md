@@ -32,14 +32,20 @@ Endpoints:
 | Method | Path | Purpose |
 |--------|------|---------|
 | GET | `/api/health` | Ollama + model readiness |
-| GET | `/api/loops` | Prayer / leading question / video segments |
+| GET | `/api/loops` | Prayer / leading question / video segments (`loops.json`) |
+| PUT / POST | `/api/loops` | Persist edited `loops.json` (cue editor Save) |
 | POST | `/api/session` | Create a chat session |
 | POST | `/api/chat` | `{ "session_id", "message" }` → Child reply |
 | POST | `/api/session/reset` | Clear session history |
 
-Experience content is loaded from `Frontend/Ars/assets/docs/conversational_template.xlsx` (preferred) or `loops.json`. Each row with a leading question becomes one **prayer → conversation** loop (default **5** user turns), then the next prayer/video plays.
+Experience content prefers `Frontend/Ars/assets/docs/loops.json` when timed `audioCues` are present; otherwise it can fall back to `conversational_template.xlsx`. Each loop is **prayer → conversation** (default **5** user turns; last loop is a single prayer offering), then credits. See `Frontend/Ars/README.md` for the full visitor flow, cue editor, and staff shortcuts.
 
-The server also serves `Frontend/Ars` as static files, so one process is enough for the kiosk.
+Also serves:
+
+| Path | Purpose |
+|------|---------|
+| `/` | Kiosk app (`index.html`) |
+| `/cue-review.html` | Timed prayer cue editor |
 
 CLI-only Child chat (no browser) is still:
 

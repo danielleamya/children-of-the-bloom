@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "CHILD/REN of the BLOOM — Ars kiosk front end (static p5.js app)",
   "scripts": {
-    "start": "npx --yes serve -s -l 8765 .",
-    "serve": "npx --yes serve -s -l 8765 ."
+    "start": "npx --yes serve -l 8765 .",
+    "serve": "npx --yes serve -l 8765 ."
   }
 }

@@ -1,0 +1,613 @@
+{
+  "duration": 58.816,
+  "language": "en",
+  "segments": [
+    {
+      "start": 2.74,
+      "end": 6.28,
+      "text": " I just want to know where I'm going when I disappear.",
+      "words": [
+        {
+          "word": " I",
+          "start": 2.74,
+          "end": 3.22
+        },
+        {
+          "word": " just",
+          "start": 3.22,
+          "end": 3.6
+        },
+        {
+          "word": " want",
+          "start": 3.6,
+          "end": 3.98
+        },
+        {
+          "word": " to",
+          "start": 3.98,
+          "end": 4.18
+        },
+        {
+          "word": " know",
+          "start": 4.18,
+          "end": 4.32
+        },
+        {
+          "word": " where",
+          "start": 4.32,
+          "end": 4.54
+        },
+        {
+          "word": " I'm",
+          "start": 4.54,
+          "end": 4.68
+        },
+        {
+          "word": " going",
+          "start": 4.68,
+          "end": 4.98
+        },
+        {
+          "word": " when",
+          "start": 4.98,
+          "end": 5.72
+        },
+        {
+          "word": " I",
+          "start": 5.72,
+          "end": 5.86
+        },
+        {
+          "word": " disappear.",
+          "start": 5.86,
+          "end": 6.28
+        }
+      ]
+    },
+    {
+      "start": 7.78,
+      "end": 11.7,
+      "text": " I want to know where my voice travels when it is silenced.",
+      "words": [
+        {
+          "word": " I",
+          "start": 7.78,
+          "end": 8.38
+        },
+        {
+          "word": " want",
+          "start": 8.38,
+          "end": 8.56
+        },
+        {
+          "word": " to",
+          "start": 8.56,
+          "end": 8.76
+        },
+        {
+          "word": " know",
+          "start": 8.76,
+          "end": 8.92
+        },
+        {
+          "word": " where",
+          "start": 8.92,
+          "end": 9.08
+        },
+        {
+          "word": " my",
+          "start": 9.08,
+          "end": 9.2
+        },
+        {
+          "word": " voice",
+          "start": 9.2,
+          "end": 9.6
+        },
+        {
+          "word": " travels",
+          "start": 9.6,
+          "end": 10.16
+        },
+        {
+          "word": " when",
+          "start": 10.16,
+          "end": 10.82
+        },
+        {
+          "word": " it",
+          "start": 10.82,
+          "end": 10.94
+        },
+        {
+          "word": " is",
+          "start": 10.94,
+          "end": 11.06
+        },
+        {
+          "word": " silenced.",
+          "start": 11.06,
+          "end": 11.7
+        }
+      ]
+    },
+    {
+      "start": 12.84,
+      "end": 17.82,
+      "text": " And I want to dive into the space my mind occupies when it dissociates.",
+      "words": [
+        {
+          "word": " And",
+          "start": 12.84,
+          "end": 13.44
+        },
+        {
+          "word": " I",
+          "start": 13.44,
+          "end": 13.56
+        },
+        {
+          "word": " want",
+          "start": 13.56,
+          "end": 13.68
+        },
+        {
+          "word": " to",
+          "start": 13.68,
+          "end": 13.76
+        },
+        {
+          "word": " dive",
+          "start": 13.76,
+          "end": 14.02
+        },
+        {
+          "word": " into",
+          "start": 14.02,
+          "end": 14.3
+        },
+        {
+          "word": " the",
+          "start": 14.3,
+          "end": 14.52
+        },
+        {
+          "word": " space",
+          "start": 14.52,
+          "end": 14.74
+        },
+        {
+          "word": " my",
+          "start": 14.74,
+          "end": 15.02
+        },
+        {
+          "word": " mind",
+          "start": 15.02,
+          "end": 15.38
+        },
+        {
+          "word": " occupies",
+          "start": 15.38,
+          "end": 16.04
+        },
+        {
+          "word": " when",
+          "start": 16.04,
+          "end": 16.9
+        },
+        {
+          "word": " it",
+          "start": 16.9,
+          "end": 17.04
+        },
+        {
+          "word": " dissociates.",
+          "start": 17.04,
+          "end": 17.82
+        }
+      ]
+    },
+    {
+      "start": 19.32,
+      "end": 22.42,
+      "text": " I want to understand how my body is still here",
+      "words": [
+        {
+          "word": " I",
+          "start": 19.32,
+          "end": 19.78
+        },
+        {
+          "word": " want",
+          "start": 19.78,
+          "end": 19.96
+        },
+        {
+          "word": " to",
+          "start": 19.96,
+          "end": 20.16
+        },
+        {
+          "word": " understand",
+          "start": 20.16,
+          "end": 20.54
+        },
+        {
+          "word": " how",
+          "start": 20.54,
+          "end": 20.76
+        },
+        {
+          "word": " my",
+          "start": 20.76,
+          "end": 20.94
+        },
+        {
+          "word": " body",
+          "start": 20.94,
+          "end": 21.34
+        },
+        {
+          "word": " is",
+          "start": 21.34,
+          "end": 21.8
+        },
+        {
+          "word": " still",
+          "start": 21.8,
+          "end": 22.04
+        },
+        {
+          "word": " here",
+          "start": 22.04,
+          "end": 22.42
+        }
+      ]
+    },
+    {
+      "start": 23.46,
+      "end": 27.6,
+      "text": " and how it manages to survive when everything else is forced elsewhere.",
+      "words": [
+        {
+          "word": " and",
+          "start": 23.46,
+          "end": 23.76
+        },
+        {
+          "word": " how",
+          "start": 23.76,
+          "end": 23.92
+        },
+        {
+          "word": " it",
+          "start": 23.92,
+          "end": 24.02
+        },
+        {
+          "word": " manages",
+          "start": 24.02,
+          "end": 24.4
+        },
+        {
+          "word": " to",
+          "start": 24.4,
+          "end": 24.7
+        },
+        {
+          "word": " survive",
+          "start": 24.7,
+          "end": 25.14
+        },
+        {
+          "word": " when",
+          "start": 25.14,
+          "end": 25.64
+        },
+        {
+          "word": " everything",
+          "start": 25.64,
+          "end": 25.98
+        },
+        {
+          "word": " else",
+          "start": 25.98,
+          "end": 26.38
+        },
+        {
+          "word": " is",
+          "start": 26.38,
+          "end": 26.74
+        },
+        {
+          "word": " forced",
+          "start": 26.74,
+          "end": 27.1
+        },
+        {
+          "word": " elsewhere.",
+          "start": 27.1,
+          "end": 27.6
+        }
+      ]
+    },
+    {
+      "start": 29.66,
+      "end": 31.98,
+      "text": " I just want to know where I'm going when I disappear.",
+      "words": [
+        {
+          "word": " I",
+          "start": 29.66,
+          "end": 30.14
+        },
+        {
+          "word": " just",
+          "start": 30.14,
+          "end": 30.38
+        },
+        {
+          "word": " want",
+          "start": 30.38,
+          "end": 30.6
+        },
+        {
+          "word": " to",
+          "start": 30.6,
+          "end": 30.66
+        },
+        {
+          "word": " know",
+          "start": 30.66,
+          "end": 30.82
+        },
+        {
+          "word": " where",
+          "start": 30.82,
+          "end": 31.0
+        },
+        {
+          "word": " I'm",
+          "start": 31.0,
+          "end": 31.1
+        },
+        {
+          "word": " going",
+          "start": 31.1,
+          "end": 31.3
+        },
+        {
+          "word": " when",
+          "start": 31.3,
+          "end": 31.48
+        },
+        {
+          "word": " I",
+          "start": 31.48,
+          "end": 31.6
+        },
+        {
+          "word": " disappear.",
+          "start": 31.6,
+          "end": 31.98
+        }
+      ]
+    },
+    {
+      "start": 32.96,
+      "end": 39.84,
+      "text": " Maybe it is somewhere holy and maybe it is somewhere kind, uplifting, open.",
+      "words": [
+        {
+          "word": " Maybe",
+          "start": 32.96,
+          "end": 33.66
+        },
+        {
+          "word": " it",
+          "start": 33.66,
+          "end": 33.88
+        },
+        {
+          "word": " is",
+          "start": 33.88,
+          "end": 33.98
+        },
+        {
+          "word": " somewhere",
+          "start": 33.98,
+          "end": 34.28
+        },
+        {
+          "word": " holy",
+          "start": 34.28,
+          "end": 34.76
+        },
+        {
+          "word": " and",
+          "start": 34.76,
+          "end": 35.66
+        },
+        {
+          "word": " maybe",
+          "start": 35.66,
+          "end": 36.5
+        },
+        {
+          "word": " it",
+          "start": 36.5,
+          "end": 36.66
+        },
+        {
+          "word": " is",
+          "start": 36.66,
+          "end": 36.74
+        },
+        {
+          "word": " somewhere",
+          "start": 36.74,
+          "end": 37.0
+        },
+        {
+          "word": " kind,",
+          "start": 37.0,
+          "end": 37.62
+        },
+        {
+          "word": " uplifting,",
+          "start": 37.9,
+          "end": 38.72
+        },
+        {
+          "word": " open.",
+          "start": 39.32,
+          "end": 39.84
+        }
+      ]
+    },
+    {
+      "start": 40.98,
+      "end": 44.7,
+      "text": " Maybe it is somewhere loving, abundant, nourishing.",
+      "words": [
+        {
+          "word": " Maybe",
+          "start": 40.98,
+          "end": 41.2
+        },
+        {
+          "word": " it",
+          "start": 41.2,
+          "end": 41.34
+        },
+        {
+          "word": " is",
+          "start": 41.34,
+          "end": 41.42
+        },
+        {
+          "word": " somewhere",
+          "start": 41.42,
+          "end": 41.64
+        },
+        {
+          "word": " loving,",
+          "start": 41.64,
+          "end": 42.12
+        },
+        {
+          "word": " abundant,",
+          "start": 42.74,
+          "end": 43.32
+        },
+        {
+          "word": " nourishing.",
+          "start": 44.24,
+          "end": 44.7
+        }
+      ]
+    },
+    {
+      "start": 45.68,
+      "end": 47.58,
+      "text": " Maybe it is somewhere I am free.",
+      "words": [
+        {
+          "word": " Maybe",
+          "start": 45.68,
+          "end": 45.98
+        },
+        {
+          "word": " it",
+          "start": 45.98,
+          "end": 46.14
+        },
+        {
+          "word": " is",
+          "start": 46.14,
+          "end": 46.22
+        },
+        {
+          "word": " somewhere",
+          "start": 46.22,
+          "end": 46.5
+        },
+        {
+          "word": " I",
+          "start": 46.5,
+          "end": 46.9
+        },
+        {
+          "word": " am",
+          "start": 46.9,
+          "end": 47.26
+        },
+        {
+          "word": " free.",
+          "start": 47.26,
+          "end": 47.58
+        }
+      ]
+    },
+    {
+      "start": 48.68,
+      "end": 50.92,
+      "text": " Maybe it is a black liberated reality.",
+      "words": [
+        {
+          "word": " Maybe",
+          "start": 48.68,
+          "end": 48.98
+        },
+        {
+          "word": " it",
+          "start": 48.98,
+          "end": 49.18
+        },
+        {
+          "word": " is",
+          "start": 49.18,
+          "end": 49.52
+        },
+        {
+          "word": " a",
+          "start": 49.52,
+          "end": 49.72
+        },
+        {
+          "word": " black",
+          "start": 49.72,
+          "end": 49.96
+        },
+        {
+          "word": " liberated",
+          "start": 49.96,
+          "end": 50.42
+        },
+        {
+          "word": " reality.",
+          "start": 50.42,
+          "end": 50.92
+        }
+      ]
+    }
+  ],
+  "prayerLines": [
+    "I just want to know where I'm going when I disappear.",
+    "I want to know where my voice travels when it is silenced.",
+    "I want to dive into the space my mind occupies when it dissociates.",
+    "I want to understand how my body is still here.",
+    "How it manages to survive while everything else is forced elsewhere.",
+    "I just want to know where i'm going when I disappear.",
+    "Maybe it is somewhere holy.",
+    "Maybe it is somewhere kind and.",
+    "Maybe it is somewhere uplifting",
+    "Maybe it is somewhere open",
+    "Maybe it is somewhere loving",
+    "Maybe it is somewhere abundant",
+    "Maybe it is somewhere nourishing.",
+    "Maybe it is somewhere I am free.",
+    "Maybe it is Black Liberated Reality."
+  ]
+}

@@ -24,8 +24,12 @@ const Api = {
   },
 
   async loadLoops() {
+    // Always bypass HTTP/browser caches so cue-editor saves are visible on refresh.
+    const cacheBust = Date.now();
     try {
-      const response = await fetch(`${this.base}/api/loops`);
+      const response = await fetch(`${this.base}/api/loops?_=${cacheBust}`, {
+        cache: "no-store",
+      });
       if (response.ok) {
         const data = await this._readJsonResponse(response);
         if (data && Array.isArray(data.loops)) return data;
@@ -34,7 +38,9 @@ const Api = {
       /* fall through to static JSON */
     }
 
-    const response = await fetch("./assets/docs/loops.json");
+    const response = await fetch(`./assets/docs/loops.json?_=${cacheBust}`, {
+      cache: "no-store",
+    });
     if (!response.ok) throw new Error("Could not load experience loops");
     const data = await this._readJsonResponse(response);
     if (!data || !Array.isArray(data.loops)) {

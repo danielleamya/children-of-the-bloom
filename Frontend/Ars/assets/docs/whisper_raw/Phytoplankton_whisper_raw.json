@@ -1,0 +1,1334 @@
+{
+  "video": "Video04Sound.mp4",
+  "duration": 93.888,
+  "language": "en",
+  "segments": [
+    {
+      "start": 0.94,
+      "end": 12.0,
+      "text": " Spirit has been calling me, and for too long I've been ignoring the call and searching for all the ways to get to where I say I'm headed without dealing with what is right in front of me.",
+      "words": [
+        {
+          "word": " Spirit",
+          "start": 0.94,
+          "end": 1.54
+        },
+        {
+          "word": " has",
+          "start": 1.54,
+          "end": 2.04
+        },
+        {
+          "word": " been",
+          "start": 2.04,
+          "end": 2.28
+        },
+        {
+          "word": " calling",
+          "start": 2.28,
+          "end": 2.6
+        },
+        {
+          "word": " me,",
+          "start": 2.6,
+          "end": 2.96
+        },
+        {
+          "word": " and",
+          "start": 3.68,
+          "end": 3.84
+        },
+        {
+          "word": " for",
+          "start": 3.84,
+          "end": 4.0
+        },
+        {
+          "word": " too",
+          "start": 4.0,
+          "end": 4.18
+        },
+        {
+          "word": " long",
+          "start": 4.18,
+          "end": 4.48
+        },
+        {
+          "word": " I've",
+          "start": 4.48,
+          "end": 4.72
+        },
+        {
+          "word": " been",
+          "start": 4.72,
+          "end": 4.84
+        },
+        {
+          "word": " ignoring",
+          "start": 4.84,
+          "end": 5.22
+        },
+        {
+          "word": " the",
+          "start": 5.22,
+          "end": 5.46
+        },
+        {
+          "word": " call",
+          "start": 5.46,
+          "end": 5.88
+        },
+        {
+          "word": " and",
+          "start": 5.88,
+          "end": 6.78
+        },
+        {
+          "word": " searching",
+          "start": 6.78,
+          "end": 7.08
+        },
+        {
+          "word": " for",
+          "start": 7.08,
+          "end": 7.32
+        },
+        {
+          "word": " all",
+          "start": 7.32,
+          "end": 7.6
+        },
+        {
+          "word": " the",
+          "start": 7.6,
+          "end": 7.74
+        },
+        {
+          "word": " ways",
+          "start": 7.74,
+          "end": 8.0
+        },
+        {
+          "word": " to",
+          "start": 8.0,
+          "end": 8.2
+        },
+        {
+          "word": " get",
+          "start": 8.2,
+          "end": 8.36
+        },
+        {
+          "word": " to",
+          "start": 8.36,
+          "end": 8.52
+        },
+        {
+          "word": " where",
+          "start": 8.52,
+          "end": 8.7
+        },
+        {
+          "word": " I",
+          "start": 8.7,
+          "end": 8.84
+        },
+        {
+          "word": " say",
+          "start": 8.84,
+          "end": 9.1
+        },
+        {
+          "word": " I'm",
+          "start": 9.1,
+          "end": 9.38
+        },
+        {
+          "word": " headed",
+          "start": 9.38,
+          "end": 9.66
+        },
+        {
+          "word": " without",
+          "start": 9.66,
+          "end": 10.0
+        },
+        {
+          "word": " dealing",
+          "start": 10.0,
+          "end": 10.42
+        },
+        {
+          "word": " with",
+          "start": 10.42,
+          "end": 10.64
+        },
+        {
+          "word": " what",
+          "start": 10.64,
+          "end": 10.84
+        },
+        {
+          "word": " is",
+          "start": 10.84,
+          "end": 11.0
+        },
+        {
+          "word": " right",
+          "start": 11.0,
+          "end": 11.24
+        },
+        {
+          "word": " in",
+          "start": 11.24,
+          "end": 11.42
+        },
+        {
+          "word": " front",
+          "start": 11.42,
+          "end": 11.62
+        },
+        {
+          "word": " of",
+          "start": 11.62,
+          "end": 11.76
+        },
+        {
+          "word": " me.",
+          "start": 11.76,
+          "end": 12.0
+        }
+      ]
+    },
+    {
+      "start": 12.88,
+      "end": 17.1,
+      "text": " Spirit has been calling me, and today I answered the call.",
+      "words": [
+        {
+          "word": " Spirit",
+          "start": 12.88,
+          "end": 13.44
+        },
+        {
+          "word": " has",
+          "start": 13.44,
+          "end": 13.84
+        },
+        {
+          "word": " been",
+          "start": 13.84,
+          "end": 14.02
+        },
+        {
+          "word": " calling",
+          "start": 14.02,
+          "end": 14.3
+        },
+        {
+          "word": " me,",
+          "start": 14.3,
+          "end": 14.62
+        },
+        {
+          "word": " and",
+          "start": 15.22,
+          "end": 15.5
+        },
+        {
+          "word": " today",
+          "start": 15.5,
+          "end": 15.82
+        },
+        {
+          "word": " I",
+          "start": 15.82,
+          "end": 16.14
+        },
+        {
+          "word": " answered",
+          "start": 16.14,
+          "end": 16.58
+        },
+        {
+          "word": " the",
+          "start": 16.58,
+          "end": 16.78
+        },
+        {
+          "word": " call.",
+          "start": 16.78,
+          "end": 17.1
+        }
+      ]
+    },
+    {
+      "start": 17.98,
+      "end": 23.42,
+      "text": " My body has finally rejected all forms of conformity requiring me to look the other way.",
+      "words": [
+        {
+          "word": " My",
+          "start": 17.98,
+          "end": 18.16
+        },
+        {
+          "word": " body",
+          "start": 18.16,
+          "end": 18.5
+        },
+        {
+          "word": " has",
+          "start": 18.5,
+          "end": 18.7
+        },
+        {
+          "word": " finally",
+          "start": 18.7,
+          "end": 19.08
+        },
+        {
+          "word": " rejected",
+          "start": 19.08,
+          "end": 19.6
+        },
+        {
+          "word": " all",
+          "start": 19.6,
+          "end": 19.96
+        },
+        {
+          "word": " forms",
+          "start": 19.96,
+          "end": 20.32
+        },
+        {
+          "word": " of",
+          "start": 20.32,
+          "end": 20.48
+        },
+        {
+          "word": " conformity",
+          "start": 20.48,
+          "end": 21.2
+        },
+        {
+          "word": " requiring",
+          "start": 21.2,
+          "end": 21.86
+        },
+        {
+          "word": " me",
+          "start": 21.86,
+          "end": 22.32
+        },
+        {
+          "word": " to",
+          "start": 22.32,
+          "end": 22.5
+        },
+        {
+          "word": " look",
+          "start": 22.5,
+          "end": 22.72
+        },
+        {
+          "word": " the",
+          "start": 22.72,
+          "end": 22.94
+        },
+        {
+          "word": " other",
+          "start": 22.94,
+          "end": 23.06
+        },
+        {
+          "word": " way.",
+          "start": 23.06,
+          "end": 23.42
+        }
+      ]
+    },
+    {
+      "start": 23.42,
+      "end": 31.62,
+      "text": " There was never a moment in time when my perceived stability actually kept me safe, and yesterday I was reminded of this reality.",
+      "words": [
+        {
+          "word": " There",
+          "start": 23.42,
+          "end": 24.42
+        },
+        {
+          "word": " was",
+          "start": 24.42,
+          "end": 24.58
+        },
+        {
+          "word": " never",
+          "start": 24.58,
+          "end": 24.88
+        },
+        {
+          "word": " a",
+          "start": 24.88,
+          "end": 25.06
+        },
+        {
+          "word": " moment",
+          "start": 25.06,
+          "end": 25.28
+        },
+        {
+          "word": " in",
+          "start": 25.28,
+          "end": 25.46
+        },
+        {
+          "word": " time",
+          "start": 25.46,
+          "end": 25.7
+        },
+        {
+          "word": " when",
+          "start": 25.7,
+          "end": 25.9
+        },
+        {
+          "word": " my",
+          "start": 25.9,
+          "end": 26.02
+        },
+        {
+          "word": " perceived",
+          "start": 26.02,
+          "end": 26.42
+        },
+        {
+          "word": " stability",
+          "start": 26.42,
+          "end": 26.96
+        },
+        {
+          "word": " actually",
+          "start": 26.96,
+          "end": 27.42
+        },
+        {
+          "word": " kept",
+          "start": 27.42,
+          "end": 27.7
+        },
+        {
+          "word": " me",
+          "start": 27.7,
+          "end": 27.86
+        },
+        {
+          "word": " safe,",
+          "start": 27.86,
+          "end": 28.28
+        },
+        {
+          "word": " and",
+          "start": 28.64,
+          "end": 28.9
+        },
+        {
+          "word": " yesterday",
+          "start": 28.9,
+          "end": 29.26
+        },
+        {
+          "word": " I",
+          "start": 29.26,
+          "end": 29.56
+        },
+        {
+          "word": " was",
+          "start": 29.56,
+          "end": 29.72
+        },
+        {
+          "word": " reminded",
+          "start": 29.72,
+          "end": 30.26
+        },
+        {
+          "word": " of",
+          "start": 30.26,
+          "end": 30.82
+        },
+        {
+          "word": " this",
+          "start": 30.82,
+          "end": 31.1
+        },
+        {
+          "word": " reality.",
+          "start": 31.1,
+          "end": 31.62
+        }
+      ]
+    },
+    {
+      "start": 32.7,
+      "end": 43.2,
+      "text": " Today I finally cleaned my altar and I sat there in tears, and my ancestors sat with me as a witness without judgment or anger listening to me as I say my prayer.",
+      "words": [
+        {
+          "word": " Today",
+          "start": 32.7,
+          "end": 33.02
+        },
+        {
+          "word": " I",
+          "start": 33.02,
+          "end": 33.36
+        },
+        {
+          "word": " finally",
+          "start": 33.36,
+          "end": 33.8
+        },
+        {
+          "word": " cleaned",
+          "start": 33.8,
+          "end": 34.2
+        },
+        {
+          "word": " my",
+          "start": 34.2,
+          "end": 34.38
+        },
+        {
+          "word": " altar",
+          "start": 34.38,
+          "end": 34.76
+        },
+        {
+          "word": " and",
+          "start": 34.76,
+          "end": 35.04
+        },
+        {
+          "word": " I",
+          "start": 35.04,
+          "end": 35.16
+        },
+        {
+          "word": " sat",
+          "start": 35.16,
+          "end": 35.44
+        },
+        {
+          "word": " there",
+          "start": 35.44,
+          "end": 35.7
+        },
+        {
+          "word": " in",
+          "start": 35.7,
+          "end": 35.92
+        },
+        {
+          "word": " tears,",
+          "start": 35.92,
+          "end": 36.3
+        },
+        {
+          "word": " and",
+          "start": 36.78,
+          "end": 37.04
+        },
+        {
+          "word": " my",
+          "start": 37.04,
+          "end": 37.18
+        },
+        {
+          "word": " ancestors",
+          "start": 37.18,
+          "end": 37.58
+        },
+        {
+          "word": " sat",
+          "start": 37.58,
+          "end": 38.02
+        },
+        {
+          "word": " with",
+          "start": 38.02,
+          "end": 38.26
+        },
+        {
+          "word": " me",
+          "start": 38.26,
+          "end": 38.46
+        },
+        {
+          "word": " as",
+          "start": 38.46,
+          "end": 38.64
+        },
+        {
+          "word": " a",
+          "start": 38.64,
+          "end": 38.76
+        },
+        {
+          "word": " witness",
+          "start": 38.76,
+          "end": 39.0
+        },
+        {
+          "word": " without",
+          "start": 39.0,
+          "end": 39.4
+        },
+        {
+          "word": " judgment",
+          "start": 39.4,
+          "end": 39.82
+        },
+        {
+          "word": " or",
+          "start": 39.82,
+          "end": 40.08
+        },
+        {
+          "word": " anger",
+          "start": 40.08,
+          "end": 40.44
+        },
+        {
+          "word": " listening",
+          "start": 40.44,
+          "end": 41.22
+        },
+        {
+          "word": " to",
+          "start": 41.22,
+          "end": 41.54
+        },
+        {
+          "word": " me",
+          "start": 41.54,
+          "end": 41.82
+        },
+        {
+          "word": " as",
+          "start": 41.82,
+          "end": 42.12
+        },
+        {
+          "word": " I",
+          "start": 42.12,
+          "end": 42.32
+        },
+        {
+          "word": " say",
+          "start": 42.32,
+          "end": 42.66
+        },
+        {
+          "word": " my",
+          "start": 42.66,
+          "end": 42.86
+        },
+        {
+          "word": " prayer.",
+          "start": 42.86,
+          "end": 43.2
+        }
+      ]
+    },
+    {
+      "start": 44.98,
+      "end": 48.9,
+      "text": " Phytoplankton take their name from phytoplankton drifters.",
+      "words": [
+        {
+          "word": " Phytoplankton",
+          "start": 44.98,
+          "end": 45.58
+        },
+        {
+          "word": " take",
+          "start": 45.58,
+          "end": 45.84
+        },
+        {
+          "word": " their",
+          "start": 45.84,
+          "end": 46.02
+        },
+        {
+          "word": " name",
+          "start": 46.02,
+          "end": 46.26
+        },
+        {
+          "word": " from",
+          "start": 46.26,
+          "end": 46.44
+        },
+        {
+          "word": " phytoplankton",
+          "start": 46.44,
+          "end": 48.2
+        },
+        {
+          "word": " drifters.",
+          "start": 48.2,
+          "end": 48.9
+        }
+      ]
+    },
+    {
+      "start": 48.9,
+      "end": 54.72,
+      "text": " They have been on the planet for more than three billion years and have witnessed the earth through its various stages.",
+      "words": [
+        {
+          "word": " They",
+          "start": 48.9,
+          "end": 50.0
+        },
+        {
+          "word": " have",
+          "start": 50.0,
+          "end": 50.16
+        },
+        {
+          "word": " been",
+          "start": 50.16,
+          "end": 50.3
+        },
+        {
+          "word": " on",
+          "start": 50.3,
+          "end": 50.5
+        },
+        {
+          "word": " the",
+          "start": 50.5,
+          "end": 50.64
+        },
+        {
+          "word": " planet",
+          "start": 50.64,
+          "end": 50.9
+        },
+        {
+          "word": " for",
+          "start": 50.9,
+          "end": 51.1
+        },
+        {
+          "word": " more",
+          "start": 51.1,
+          "end": 51.22
+        },
+        {
+          "word": " than",
+          "start": 51.22,
+          "end": 51.36
+        },
+        {
+          "word": " three",
+          "start": 51.36,
+          "end": 51.62
+        },
+        {
+          "word": " billion",
+          "start": 51.62,
+          "end": 52.04
+        },
+        {
+          "word": " years",
+          "start": 52.04,
+          "end": 52.5
+        },
+        {
+          "word": " and",
+          "start": 52.5,
+          "end": 52.76
+        },
+        {
+          "word": " have",
+          "start": 52.76,
+          "end": 52.96
+        },
+        {
+          "word": " witnessed",
+          "start": 52.96,
+          "end": 53.2
+        },
+        {
+          "word": " the",
+          "start": 53.2,
+          "end": 53.44
+        },
+        {
+          "word": " earth",
+          "start": 53.44,
+          "end": 53.62
+        },
+        {
+          "word": " through",
+          "start": 53.62,
+          "end": 53.84
+        },
+        {
+          "word": " its",
+          "start": 53.84,
+          "end": 53.98
+        },
+        {
+          "word": " various",
+          "start": 53.98,
+          "end": 54.3
+        },
+        {
+          "word": " stages.",
+          "start": 54.3,
+          "end": 54.72
+        }
+      ]
+    },
+    {
+      "start": 55.56,
+      "end": 62.34,
+      "text": " Today there are more than 20,000 species drifting atop the earth's waters in different oceanic and freshwater habitats.",
+      "words": [
+        {
+          "word": " Today",
+          "start": 55.56,
+          "end": 55.92
+        },
+        {
+          "word": " there",
+          "start": 55.92,
+          "end": 56.22
+        },
+        {
+          "word": " are",
+          "start": 56.22,
+          "end": 56.36
+        },
+        {
+          "word": " more",
+          "start": 56.36,
+          "end": 56.5
+        },
+        {
+          "word": " than",
+          "start": 56.5,
+          "end": 56.7
+        },
+        {
+          "word": " 20",
+          "start": 56.7,
+          "end": 57.04
+        },
+        {
+          "word": ",000",
+          "start": 57.04,
+          "end": 57.38
+        },
+        {
+          "word": " species",
+          "start": 57.38,
+          "end": 57.78
+        },
+        {
+          "word": " drifting",
+          "start": 57.78,
+          "end": 58.26
+        },
+        {
+          "word": " atop",
+          "start": 58.26,
+          "end": 58.7
+        },
+        {
+          "word": " the",
+          "start": 58.7,
+          "end": 58.92
+        },
+        {
+          "word": " earth's",
+          "start": 58.92,
+          "end": 59.32
+        },
+        {
+          "word": " waters",
+          "start": 59.32,
+          "end": 59.7
+        },
+        {
+          "word": " in",
+          "start": 59.7,
+          "end": 59.98
+        },
+        {
+          "word": " different",
+          "start": 59.98,
+          "end": 60.26
+        },
+        {
+          "word": " oceanic",
+          "start": 60.26,
+          "end": 61.0
+        },
+        {
+          "word": " and",
+          "start": 61.0,
+          "end": 61.12
+        },
+        {
+          "word": " freshwater",
+          "start": 61.12,
+          "end": 61.54
+        },
+        {
+          "word": " habitats.",
+          "start": 61.54,
+          "end": 62.34
+        }
+      ]
+    },
+    {
+      "start": 63.32,
+      "end": 70.1,
+      "text": " Through photosynthesis they absorb sunlight and transform it into 50-80% of the earth's oxygen that we breathe daily.",
+      "words": [
+        {
+          "word": " Through",
+          "start": 63.32,
+          "end": 63.58
+        },
+        {
+          "word": " photosynthesis",
+          "start": 63.58,
+          "end": 64.16
+        },
+        {
+          "word": " they",
+          "start": 64.16,
+          "end": 64.56
+        },
+        {
+          "word": " absorb",
+          "start": 64.56,
+          "end": 64.92
+        },
+        {
+          "word": " sunlight",
+          "start": 64.92,
+          "end": 65.34
+        },
+        {
+          "word": " and",
+          "start": 65.34,
+          "end": 65.6
+        },
+        {
+          "word": " transform",
+          "start": 65.6,
+          "end": 66.02
+        },
+        {
+          "word": " it",
+          "start": 66.02,
+          "end": 66.18
+        },
+        {
+          "word": " into",
+          "start": 66.18,
+          "end": 66.38
+        },
+        {
+          "word": " 50",
+          "start": 66.38,
+          "end": 66.7
+        },
+        {
+          "word": "-80",
+          "start": 66.7,
+          "end": 67.12
+        },
+        {
+          "word": "%",
+          "start": 67.12,
+          "end": 67.52
+        },
+        {
+          "word": " of",
+          "start": 67.52,
+          "end": 67.82
+        },
+        {
+          "word": " the",
+          "start": 67.82,
+          "end": 67.94
+        },
+        {
+          "word": " earth's",
+          "start": 67.94,
+          "end": 68.26
+        },
+        {
+          "word": " oxygen",
+          "start": 68.26,
+          "end": 68.7
+        },
+        {
+          "word": " that",
+          "start": 68.7,
+          "end": 69.24
+        },
+        {
+          "word": " we",
+          "start": 69.24,
+          "end": 69.46
+        },
+        {
+          "word": " breathe",
+          "start": 69.46,
+          "end": 69.74
+        },
+        {
+          "word": " daily.",
+          "start": 69.74,
+          "end": 70.1
+        }
+      ]
+    },
+    {
+      "start": 71.96,
+      "end": 84.76,
+      "text": " Thank you for holding me when I had no strength and for keeping me alive when I was such a young child, raised in the trenches of anti-blackness, absorbing it in my bones and reeking of inferiority.",
+      "words": [
+        {
+          "word": " Thank",
+          "start": 71.96,
+          "end": 72.48
+        },
+        {
+          "word": " you",
+          "start": 72.48,
+          "end": 72.8
+        },
+        {
+          "word": " for",
+          "start": 72.8,
+          "end": 73.64
+        },
+        {
+          "word": " holding",
+          "start": 73.64,
+          "end": 73.96
+        },
+        {
+          "word": " me",
+          "start": 73.96,
+          "end": 74.2
+        },
+        {
+          "word": " when",
+          "start": 74.2,
+          "end": 74.32
+        },
+        {
+          "word": " I",
+          "start": 74.32,
+          "end": 74.44
+        },
+        {
+          "word": " had",
+          "start": 74.44,
+          "end": 74.64
+        },
+        {
+          "word": " no",
+          "start": 74.64,
+          "end": 74.82
+        },
+        {
+          "word": " strength",
+          "start": 74.82,
+          "end": 75.2
+        },
+        {
+          "word": " and",
+          "start": 75.2,
+          "end": 75.86
+        },
+        {
+          "word": " for",
+          "start": 75.86,
+          "end": 76.02
+        },
+        {
+          "word": " keeping",
+          "start": 76.02,
+          "end": 76.26
+        },
+        {
+          "word": " me",
+          "start": 76.26,
+          "end": 76.48
+        },
+        {
+          "word": " alive",
+          "start": 76.48,
+          "end": 76.82
+        },
+        {
+          "word": " when",
+          "start": 76.82,
+          "end": 77.0
+        },
+        {
+          "word": " I",
+          "start": 77.0,
+          "end": 77.12
+        },
+        {
+          "word": " was",
+          "start": 77.12,
+          "end": 77.26
+        },
+        {
+          "word": " such",
+          "start": 77.26,
+          "end": 77.42
+        },
+        {
+          "word": " a",
+          "start": 77.42,
+          "end": 77.54
+        },
+        {
+          "word": " young",
+          "start": 77.54,
+          "end": 77.7
+        },
+        {
+          "word": " child,",
+          "start": 77.7,
+          "end": 78.24
+        },
+        {
+          "word": " raised",
+          "start": 78.84,
+          "end": 79.16
+        },
+        {
+          "word": " in",
+          "start": 79.16,
+          "end": 79.4
+        },
+        {
+          "word": " the",
+          "start": 79.4,
+          "end": 79.5
+        },
+        {
+          "word": " trenches",
+          "start": 79.5,
+          "end": 79.76
+        },
+        {
+          "word": " of",
+          "start": 79.76,
+          "end": 80.02
+        },
+        {
+          "word": " anti",
+          "start": 80.02,
+          "end": 80.28
+        },
+        {
+          "word": "-blackness,",
+          "start": 80.28,
+          "end": 80.98
+        },
+        {
+          "word": " absorbing",
+          "start": 81.36,
+          "end": 81.78
+        },
+        {
+          "word": " it",
+          "start": 81.78,
+          "end": 82.0
+        },
+        {
+          "word": " in",
+          "start": 82.0,
+          "end": 82.16
+        },
+        {
+          "word": " my",
+          "start": 82.16,
+          "end": 82.32
+        },
+        {
+          "word": " bones",
+          "start": 82.32,
+          "end": 82.88
+        },
+        {
+          "word": " and",
+          "start": 82.88,
+          "end": 83.22
+        },
+        {
+          "word": " reeking",
+          "start": 83.22,
+          "end": 83.68
+        },
+        {
+          "word": " of",
+          "start": 83.68,
+          "end": 83.94
+        },
+        {
+          "word": " inferiority.",
+          "start": 83.94,
+          "end": 84.76
+        }
+      ]
+    },
+    {
+      "start": 85.76,
+      "end": 93.58,
+      "text": " You remind me why I'm here today, to release that pain, to share in that healing, and to find my way back to you.",
+      "words": [
+        {
+          "word": " You",
+          "start": 85.76,
+          "end": 86.02
+        },
+        {
+          "word": " remind",
+          "start": 86.02,
+          "end": 86.34
+        },
+        {
+          "word": " me",
+          "start": 86.34,
+          "end": 86.72
+        },
+        {
+          "word": " why",
+          "start": 86.72,
+          "end": 87.02
+        },
+        {
+          "word": " I'm",
+          "start": 87.02,
+          "end": 87.26
+        },
+        {
+          "word": " here",
+          "start": 87.26,
+          "end": 87.42
+        },
+        {
+          "word": " today,",
+          "start": 87.42,
+          "end": 87.86
+        },
+        {
+          "word": " to",
+          "start": 88.76,
+          "end": 88.9
+        },
+        {
+          "word": " release",
+          "start": 88.9,
+          "end": 89.16
+        },
+        {
+          "word": " that",
+          "start": 89.16,
+          "end": 89.44
+        },
+        {
+          "word": " pain,",
+          "start": 89.44,
+          "end": 89.78
+        },
+        {
+          "word": " to",
+          "start": 90.46,
+          "end": 90.48
+        },
+        {
+          "word": " share",
+          "start": 90.48,
+          "end": 90.78
+        },
+        {
+          "word": " in",
+          "start": 90.78,
+          "end": 90.92
+        },
+        {
+          "word": " that",
+          "start": 90.92,
+          "end": 91.12
+        },
+        {
+          "word": " healing,",
+          "start": 91.12,
+          "end": 91.5
+        },
+        {
+          "word": " and",
+          "start": 92.06,
+          "end": 92.18
+        },
+        {
+          "word": " to",
+          "start": 92.18,
+          "end": 92.32
+        },
+        {
+          "word": " find",
+          "start": 92.32,
+          "end": 92.56
+        },
+        {
+          "word": " my",
+          "start": 92.56,
+          "end": 92.76
+        },
+        {
+          "word": " way",
+          "start": 92.76,
+          "end": 92.92
+        },
+        {
+          "word": " back",
+          "start": 92.92,
+          "end": 93.12
+        },
+        {
+          "word": " to",
+          "start": 93.12,
+          "end": 93.38
+        },
+        {
+          "word": " you.",
+          "start": 93.38,
+          "end": 93.58
+        }
+      ]
+    }
+  ]
+}

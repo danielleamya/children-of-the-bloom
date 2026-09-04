@@ -72,7 +72,7 @@ body {
   pointer-events: none;
 }
 
-/* Chat: video mounts inside the upper frame; gradient stays behind the chat UI */
+/* Chat: video mounts in the upper stage, edge-to-edge (no frame inset) */
 #kiosk.has-chat-video .loop-video.is-active {
   position: absolute;
   inset: 0;
@@ -80,6 +80,7 @@ body {
   height: 100%;
   z-index: 0;
   object-fit: cover;
+  object-position: center top;
   opacity: 1;
 }
 
@@ -172,7 +173,7 @@ h3.screen-header {
   max-width: 86%;
   font-family: var(--font-ui);
   font-weight: 400;
-  font-size: clamp(0.9rem, 2.3vh, 1.1rem);
+  font-size: clamp(1.05rem, 2.9vh, 1.35rem);
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.92);
 }
@@ -620,12 +621,6 @@ h3.screen-header {
 
 /* Closing / ending readings reuse the prayer carousel (no video). */
 
-.screen.chat.has-video-bg .chat-video-frame {
-  background:
-    linear-gradient(to bottom, rgba(0, 0, 18, 0.15), rgba(0, 0, 18, 0.55)),
-    url("../assets/Frame_Video_shadow.png") center / 100% 100% no-repeat;
-}
-
 /* ——— Chat ——— */
 .screen.chat {
   padding: 0;
@@ -640,35 +635,37 @@ h3.screen-header {
 }
 
 .chat-video-frame {
-  flex: 1 1 52%;
-  margin: 4% 4% 0;
+  /* Fill the top edge-to-edge; height follows the source video aspect ratio. */
+  flex: 0 0 auto;
+  width: 100%;
+  margin: 0;
   position: relative;
   z-index: 2;
   overflow: hidden;
   pointer-events: none;
-  background: transparent;
+  background: #000;
+  aspect-ratio: 2 / 3; /* Child01 and most loop takes are 2:3; JS updates per clip */
+  max-height: 58%;
 }
 
 .chat-video-frame::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("../assets/Frame_Video_shadow.png") center / 100% 100% no-repeat;
-  pointer-events: none;
-  z-index: 2;
+  content: none;
 }
 
 .chat-panel {
   position: relative;
   z-index: 2;
-  flex: 0 0 46%;
+  flex: 1 1 auto;
   width: 100%;
   margin-top: auto;
+  min-height: 42%;
+  min-width: 0;
   padding: 7% 8% 5%;
   display: flex;
   flex-direction: column;
   text-align: left;
   background: url("../assets/Frame_Chat_shadow.png") center / 100% 100% no-repeat;
+  overflow-x: hidden;
 }
 
 .chat-heading {
@@ -684,18 +681,60 @@ h3.screen-header {
 
 .messages {
   flex: 1;
+  min-width: 0;
+  overflow-x: hidden;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   padding: 0.2rem 0.15rem 0.6rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(119, 241, 226, 0.45) rgba(1, 22, 77, 0.35);
+}
+
+.messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages::-webkit-scrollbar-track {
+  margin: 0.35rem 0;
+  background: rgba(1, 22, 77, 0.35);
+  border-radius: 999px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(119, 241, 226, 0.55),
+    rgba(59, 150, 226, 0.5)
+  );
+  border-radius: 999px;
+  border: 1px solid rgba(119, 241, 226, 0.15);
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(119, 241, 226, 0.8),
+    rgba(59, 150, 226, 0.7)
+  );
+}
+
+.messages::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 .msg {
   max-width: 90%;
+  min-width: 0;
   font-family: var(--font-ui);
   font-size: clamp(0.72rem, 1.9vh, 0.9rem);
   line-height: 1.35;
+  /* Long tokens must wrap — never allow horizontal scroll in the chat panel. */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .msg.bot {
@@ -950,6 +989,7 @@ h3.screen-header {
   padding: 0.55em 0.95em;
   border-radius: 0.45rem;
   font-weight: 400;
+  box-sizing: border-box;
 }
 
 .choice-row {
@@ -1063,4 +1103,215 @@ h3.screen-header {
 .send:disabled {
   background-image: url("../assets/btn_arrow_upward_Disabled.png");
   cursor: default;
+}
+
+/* ——— Credits ——— */
+/* Poem-style header + centered fade-in; first person uses .credits-person--lead */
+.screen--credits .screen-body {
+  padding: clamp(6.5rem, 16vh, 9rem) clamp(1.2rem, 5vw, 2rem)
+    clamp(5.5rem, 14vh, 7.5rem);
+}
+
+.credits-stage {
+  width: min(100%, 24rem);
+  display: grid;
+  gap: clamp(1.4rem, 3.8vh, 2.2rem);
+  justify-items: center;
+  text-align: center;
+}
+
+.credits-stage--enter {
+  animation: credits-fade-in 1.4s ease both;
+}
+
+@keyframes credits-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .credits-stage--enter {
+    animation: none;
+  }
+}
+
+.credits-people {
+  list-style: none;
+  width: 100%;
+  display: grid;
+  gap: clamp(0.4rem, 1.2vh, 0.7rem);
+  margin: 0;
+  padding: 0;
+}
+
+.credits-person {
+  display: grid;
+  gap: 0.12rem;
+}
+
+.credits-person--lead {
+  margin-bottom: clamp(0.75rem, 2.4vh, 1.35rem);
+}
+
+.credits-person--lead .credits-name {
+  font-size: clamp(1.35rem, 3.5vh, 1.75rem);
+}
+
+.credits-person--lead .credits-role {
+  font-size: clamp(0.74rem, 1.85vh, 0.92rem);
+}
+
+.credits-name {
+  font-family: var(--font-display);
+  font-size: clamp(0.92rem, 2.4vh, 1.15rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: var(--white);
+}
+
+.credits-role {
+  font-family: var(--font-ui);
+  font-size: clamp(0.56rem, 1.4vh, 0.7rem);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(119, 241, 226, 0.92);
+}
+
+.credits-logos {
+  width: 100%;
+  display: grid;
+  gap: clamp(0.75rem, 2vh, 1.15rem);
+  justify-items: center;
+  margin-top: clamp(0.15rem, 0.8vh, 0.45rem);
+}
+
+.credits-logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.2rem, 4vw, 2rem);
+  width: 100%;
+}
+
+.credits-logo--irl {
+  display: block;
+  width: min(100%, 13.5rem);
+  height: auto;
+  mix-blend-mode: lighten;
+}
+
+.credits-logo--partner {
+  display: block;
+  width: auto;
+  height: clamp(2rem, 5.4vh, 2.85rem);
+  max-width: min(40%, 7.5rem);
+  object-fit: contain;
+}
+
+/* Staff fullscreen exit gate */
+.kiosk-lock {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(0, 0, 18, 0.92);
+  backdrop-filter: blur(8px);
+}
+
+.kiosk-lock[hidden] {
+  display: none !important;
+}
+
+.kiosk-lock__panel {
+  width: min(26rem, 100%);
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.5rem 1.35rem 1.25rem;
+  border: 1px solid rgba(119, 241, 226, 0.35);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(1, 22, 77, 0.95), rgba(0, 0, 18, 0.98));
+  box-shadow: 0 0 40px rgba(59, 150, 226, 0.22);
+}
+
+.kiosk-lock__title {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.kiosk-lock__copy {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.kiosk-lock__label {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.kiosk-lock__input {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid rgba(119, 241, 226, 0.35);
+  border-radius: 8px;
+  background: rgba(0, 0, 18, 0.85);
+  color: var(--white);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+}
+
+.kiosk-lock__input:focus {
+  outline: 2px solid rgba(119, 241, 226, 0.55);
+  outline-offset: 1px;
+}
+
+.kiosk-lock__error {
+  margin: 0;
+  color: #ff8f8f;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+}
+
+.kiosk-lock__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
+}
+
+.kiosk-lock__actions .btn--ghost {
+  min-height: 2.6rem;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.kiosk-lock__actions .btn--ghost:hover,
+.kiosk-lock__actions .btn--ghost:focus-visible {
+  border-color: var(--cyan);
+  color: var(--cyan);
 }

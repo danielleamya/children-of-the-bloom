@@ -6,9 +6,12 @@ Serves Frontend/Ars as static files and exposes:
 
     GET  /api/health
     GET  /api/loops            -> prayer / leading question / video segments
+    PUT  /api/loops            -> persist cue-editor edits to loops.json
     POST /api/session          -> { "session_id": "..." }
     POST /api/chat             -> { "session_id", "message" }
     POST /api/session/reset    -> clear one session (or all if omitted)
+
+Also serves /cue-review.html for timed prayer editing.
 
 Designed for Raspberry Pi / desktop local runs (not public cloud).
 
@@ -56,6 +59,21 @@ def _resolve_video(stem: str | None) -> str | None:
     if not key or not VIDEOS_DIR.is_dir():
         return None
 
+    # Already a full filename.
+    if key.lower().endswith(".mp4"):
+        exact_file = VIDEOS_DIR / key
+        return exact_file.name if exact_file.is_file() else None
+
+    # Prefer spoken takes when present (e.g. Child01_WithSound.mp4).
+    if key.lower().endswith("_withsound"):
+        exact = VIDEOS_DIR / f"{key}.mp4"
+        if exact.is_file():
+            return exact.name
+    else:
+        with_sound = VIDEOS_DIR / f"{key}_WithSound.mp4"
+        if with_sound.is_file():
+            return with_sound.name
+
     exact = VIDEOS_DIR / f"{key}.mp4"
     if exact.is_file():
         return exact.name
@@ -64,7 +82,12 @@ def _resolve_video(stem: str | None) -> str | None:
         path.name
         for path in VIDEOS_DIR.glob("*.mp4")
         if path.stem.lower().startswith(key.lower())
+        or key.lower() in path.stem.lower()
     )
+    # Prefer any WithSound match when multiple exist.
+    voiced = [m for m in matches if "withsound" in m.lower()]
+    if voiced:
+        return voiced[0]
     return matches[0] if matches else None
 
 
@@ -94,11 +117,13 @@ def _load_loops_from_xlsx(path: Path) -> dict[str, Any] | None:
         prayer_text = str(prayer).strip()
         leading_text = str(leading).strip() if leading else None
         video_key = str(video).strip() if video else None
+        video_file = _resolve_video(video_key)
         entry = {
             "prayer": prayer_text,
             "leadingQuestion": leading_text,
-            "video": _resolve_video(video_key),
+            "video": video_file,
             "videoKey": video_key,
+            "audioSync": bool(video_file and "withsound" in video_file.lower()),
         }
         if leading_text:
             loops.append(entry)
@@ -125,9 +150,15 @@ def _load_loops_from_json(path: Path) -> dict[str, Any] | None:
 
 
 def load_experience_loops() -> dict[str, Any]:
-    payload = _load_loops_from_xlsx(LOOPS_XLSX)
-    if payload is None:
-        payload = _load_loops_from_json(LOOPS_JSON)
+    json_payload = _load_loops_from_json(LOOPS_JSON)
+    xlsx_payload = _load_loops_from_xlsx(LOOPS_XLSX)
+
+    # Prefer JSON when it carries timed prayer cues (editor / Whisper pipeline).
+    json_loops = (json_payload or {}).get("loops") or []
+    if json_payload and any(isinstance(loop, dict) and loop.get("audioCues") for loop in json_loops):
+        return json_payload
+
+    payload = xlsx_payload or json_payload
     if payload is None:
         return {
             "turnsPerLoop": DEFAULT_TURNS_PER_LOOP,
@@ -165,6 +196,28 @@ def health():
 @app.get("/api/loops")
 def get_loops():
     return jsonify(_loops_payload)
+
+
+@app.put("/api/loops")
+@app.post("/api/loops")
+def save_loops():
+    """Persist edited loops.json from cue-review.html.
+
+    Updates both the on-disk file and the in-memory payload so the next
+    GET /api/loops (and a hard-refreshed kiosk) sees the new timings immediately.
+    """
+    global _loops_payload
+    payload = request.get_json(silent=True)
+    if not isinstance(payload, dict) or not isinstance(payload.get("loops"), list):
+        return jsonify({"ok": False, "error": "Expected { loops: [...] }"}), 400
+
+    payload.setdefault("turnsPerLoop", DEFAULT_TURNS_PER_LOOP)
+    payload.setdefault("closing", _loops_payload.get("closing"))
+
+    LOOPS_JSON.parent.mkdir(parents=True, exist_ok=True)
+    LOOPS_JSON.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    _loops_payload = payload
+    return jsonify({"ok": True, "loops": len(payload.get("loops") or [])})
 
 
 @app.post("/api/session")

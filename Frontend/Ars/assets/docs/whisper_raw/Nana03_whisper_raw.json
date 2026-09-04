@@ -1,0 +1,602 @@
+{
+  "video": "Video03Sound.mp4",
+  "duration": 40.256,
+  "language": "en",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 2.16,
+      "text": " My Nana has been calling me",
+      "words": [
+        {
+          "word": " My",
+          "start": 0.0,
+          "end": 0.48
+        },
+        {
+          "word": " Nana",
+          "start": 0.48,
+          "end": 0.78
+        },
+        {
+          "word": " has",
+          "start": 0.78,
+          "end": 1.2
+        },
+        {
+          "word": " been",
+          "start": 1.2,
+          "end": 1.4
+        },
+        {
+          "word": " calling",
+          "start": 1.4,
+          "end": 1.74
+        },
+        {
+          "word": " me",
+          "start": 1.74,
+          "end": 2.16
+        }
+      ]
+    },
+    {
+      "start": 3.06,
+      "end": 10.02,
+      "text": " My Nana Kissel de Beners was born in Puerto Rico by way of St. Croix and St. Thomas on August 27th",
+      "words": [
+        {
+          "word": " My",
+          "start": 3.06,
+          "end": 3.58
+        },
+        {
+          "word": " Nana",
+          "start": 3.58,
+          "end": 3.88
+        },
+        {
+          "word": " Kissel",
+          "start": 3.88,
+          "end": 4.3
+        },
+        {
+          "word": " de",
+          "start": 4.3,
+          "end": 4.46
+        },
+        {
+          "word": " Beners",
+          "start": 4.46,
+          "end": 4.82
+        },
+        {
+          "word": " was",
+          "start": 4.82,
+          "end": 5.04
+        },
+        {
+          "word": " born",
+          "start": 5.04,
+          "end": 5.34
+        },
+        {
+          "word": " in",
+          "start": 5.34,
+          "end": 5.52
+        },
+        {
+          "word": " Puerto",
+          "start": 5.52,
+          "end": 5.66
+        },
+        {
+          "word": " Rico",
+          "start": 5.66,
+          "end": 6.1
+        },
+        {
+          "word": " by",
+          "start": 6.1,
+          "end": 6.52
+        },
+        {
+          "word": " way",
+          "start": 6.52,
+          "end": 6.72
+        },
+        {
+          "word": " of",
+          "start": 6.72,
+          "end": 6.84
+        },
+        {
+          "word": " St.",
+          "start": 6.84,
+          "end": 7.04
+        },
+        {
+          "word": " Croix",
+          "start": 7.2,
+          "end": 7.5
+        },
+        {
+          "word": " and",
+          "start": 7.5,
+          "end": 7.66
+        },
+        {
+          "word": " St.",
+          "start": 7.66,
+          "end": 7.84
+        },
+        {
+          "word": " Thomas",
+          "start": 8.0,
+          "end": 8.26
+        },
+        {
+          "word": " on",
+          "start": 8.26,
+          "end": 8.5
+        },
+        {
+          "word": " August",
+          "start": 8.5,
+          "end": 8.84
+        },
+        {
+          "word": " 27th",
+          "start": 8.84,
+          "end": 10.02
+        }
+      ]
+    },
+    {
+      "start": 10.02,
+      "end": 10.96,
+      "text": " 1915",
+      "words": [
+        {
+          "word": " 1915",
+          "start": 10.02,
+          "end": 10.96
+        }
+      ]
+    },
+    {
+      "start": 11.98,
+      "end": 14.3,
+      "text": " Two years later on April 27th",
+      "words": [
+        {
+          "word": " Two",
+          "start": 11.98,
+          "end": 12.5
+        },
+        {
+          "word": " years",
+          "start": 12.5,
+          "end": 12.7
+        },
+        {
+          "word": " later",
+          "start": 12.7,
+          "end": 12.94
+        },
+        {
+          "word": " on",
+          "start": 12.94,
+          "end": 13.16
+        },
+        {
+          "word": " April",
+          "start": 13.16,
+          "end": 13.44
+        },
+        {
+          "word": " 27th",
+          "start": 13.44,
+          "end": 14.3
+        }
+      ]
+    },
+    {
+      "start": 14.3,
+      "end": 20.3,
+      "text": " 1917 she and her mother made the voyage to New York from San Juan on board the Philadelphia",
+      "words": [
+        {
+          "word": " 1917",
+          "start": 14.3,
+          "end": 14.9
+        },
+        {
+          "word": " she",
+          "start": 14.9,
+          "end": 15.84
+        },
+        {
+          "word": " and",
+          "start": 15.84,
+          "end": 16.06
+        },
+        {
+          "word": " her",
+          "start": 16.06,
+          "end": 16.16
+        },
+        {
+          "word": " mother",
+          "start": 16.16,
+          "end": 16.4
+        },
+        {
+          "word": " made",
+          "start": 16.4,
+          "end": 16.7
+        },
+        {
+          "word": " the",
+          "start": 16.7,
+          "end": 16.86
+        },
+        {
+          "word": " voyage",
+          "start": 16.86,
+          "end": 17.12
+        },
+        {
+          "word": " to",
+          "start": 17.12,
+          "end": 17.4
+        },
+        {
+          "word": " New",
+          "start": 17.4,
+          "end": 17.58
+        },
+        {
+          "word": " York",
+          "start": 17.58,
+          "end": 17.84
+        },
+        {
+          "word": " from",
+          "start": 17.84,
+          "end": 18.54
+        },
+        {
+          "word": " San",
+          "start": 18.54,
+          "end": 18.78
+        },
+        {
+          "word": " Juan",
+          "start": 18.78,
+          "end": 19.08
+        },
+        {
+          "word": " on",
+          "start": 19.08,
+          "end": 19.4
+        },
+        {
+          "word": " board",
+          "start": 19.4,
+          "end": 19.58
+        },
+        {
+          "word": " the",
+          "start": 19.58,
+          "end": 19.8
+        },
+        {
+          "word": " Philadelphia",
+          "start": 19.8,
+          "end": 20.3
+        }
+      ]
+    },
+    {
+      "start": 20.92,
+      "end": 23.06,
+      "text": " 1885 in New York",
+      "words": [
+        {
+          "word": " 1885",
+          "start": 20.92,
+          "end": 21.34
+        },
+        {
+          "word": " in",
+          "start": 21.34,
+          "end": 22.7
+        },
+        {
+          "word": " New",
+          "start": 22.7,
+          "end": 22.84
+        },
+        {
+          "word": " York",
+          "start": 22.84,
+          "end": 23.06
+        }
+      ]
+    },
+    {
+      "start": 23.06,
+      "end": 26.72,
+      "text": " She became the eldest sister of seven children in the midst of the Great Depression",
+      "words": [
+        {
+          "word": " She",
+          "start": 23.06,
+          "end": 23.26
+        },
+        {
+          "word": " became",
+          "start": 23.26,
+          "end": 23.54
+        },
+        {
+          "word": " the",
+          "start": 23.54,
+          "end": 23.74
+        },
+        {
+          "word": " eldest",
+          "start": 23.74,
+          "end": 23.9
+        },
+        {
+          "word": " sister",
+          "start": 23.9,
+          "end": 24.4
+        },
+        {
+          "word": " of",
+          "start": 24.4,
+          "end": 24.68
+        },
+        {
+          "word": " seven",
+          "start": 24.68,
+          "end": 24.9
+        },
+        {
+          "word": " children",
+          "start": 24.9,
+          "end": 25.28
+        },
+        {
+          "word": " in",
+          "start": 25.28,
+          "end": 25.5
+        },
+        {
+          "word": " the",
+          "start": 25.5,
+          "end": 25.58
+        },
+        {
+          "word": " midst",
+          "start": 25.58,
+          "end": 25.8
+        },
+        {
+          "word": " of",
+          "start": 25.8,
+          "end": 25.98
+        },
+        {
+          "word": " the",
+          "start": 25.98,
+          "end": 26.12
+        },
+        {
+          "word": " Great",
+          "start": 26.12,
+          "end": 26.26
+        },
+        {
+          "word": " Depression",
+          "start": 26.26,
+          "end": 26.72
+        }
+      ]
+    },
+    {
+      "start": 27.66,
+      "end": 33.24,
+      "text": " All siblings were separated and placed into different foster homes until they later found their way back to each other",
+      "words": [
+        {
+          "word": " All",
+          "start": 27.66,
+          "end": 28.2
+        },
+        {
+          "word": " siblings",
+          "start": 28.2,
+          "end": 28.58
+        },
+        {
+          "word": " were",
+          "start": 28.58,
+          "end": 28.8
+        },
+        {
+          "word": " separated",
+          "start": 28.8,
+          "end": 29.22
+        },
+        {
+          "word": " and",
+          "start": 29.22,
+          "end": 29.46
+        },
+        {
+          "word": " placed",
+          "start": 29.46,
+          "end": 29.64
+        },
+        {
+          "word": " into",
+          "start": 29.64,
+          "end": 29.9
+        },
+        {
+          "word": " different",
+          "start": 29.9,
+          "end": 30.22
+        },
+        {
+          "word": " foster",
+          "start": 30.22,
+          "end": 30.58
+        },
+        {
+          "word": " homes",
+          "start": 30.58,
+          "end": 30.96
+        },
+        {
+          "word": " until",
+          "start": 30.96,
+          "end": 31.22
+        },
+        {
+          "word": " they",
+          "start": 31.22,
+          "end": 31.4
+        },
+        {
+          "word": " later",
+          "start": 31.4,
+          "end": 31.66
+        },
+        {
+          "word": " found",
+          "start": 31.66,
+          "end": 31.98
+        },
+        {
+          "word": " their",
+          "start": 31.98,
+          "end": 32.18
+        },
+        {
+          "word": " way",
+          "start": 32.18,
+          "end": 32.4
+        },
+        {
+          "word": " back",
+          "start": 32.4,
+          "end": 32.66
+        },
+        {
+          "word": " to",
+          "start": 32.66,
+          "end": 32.82
+        },
+        {
+          "word": " each",
+          "start": 32.82,
+          "end": 32.96
+        },
+        {
+          "word": " other",
+          "start": 32.96,
+          "end": 33.24
+        }
+      ]
+    },
+    {
+      "start": 34.36,
+      "end": 35.78,
+      "text": " The children of the blue",
+      "words": [
+        {
+          "word": " The",
+          "start": 34.36,
+          "end": 34.9
+        },
+        {
+          "word": " children",
+          "start": 34.9,
+          "end": 35.2
+        },
+        {
+          "word": " of",
+          "start": 35.2,
+          "end": 35.46
+        },
+        {
+          "word": " the",
+          "start": 35.46,
+          "end": 35.56
+        },
+        {
+          "word": " blue",
+          "start": 35.56,
+          "end": 35.78
+        }
+      ]
+    },
+    {
+      "start": 36.98,
+      "end": 40.22,
+      "text": " Young black children drifting away yet finding their way",
+      "words": [
+        {
+          "word": " Young",
+          "start": 36.98,
+          "end": 37.52
+        },
+        {
+          "word": " black",
+          "start": 37.52,
+          "end": 37.8
+        },
+        {
+          "word": " children",
+          "start": 37.8,
+          "end": 38.2
+        },
+        {
+          "word": " drifting",
+          "start": 38.2,
+          "end": 38.54
+        },
+        {
+          "word": " away",
+          "start": 38.54,
+          "end": 38.94
+        },
+        {
+          "word": " yet",
+          "start": 38.94,
+          "end": 39.48
+        },
+        {
+          "word": " finding",
+          "start": 39.48,
+          "end": 39.86
+        },
+        {
+          "word": " their",
+          "start": 39.86,
+          "end": 40.12
+        },
+        {
+          "word": " way",
+          "start": 40.12,
+          "end": 40.22
+        }
+      ]
+    }
+  ]
+}
